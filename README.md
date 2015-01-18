@@ -8,7 +8,7 @@ Makes TV more awesome.
 ```
 sudo npm install -g n
 ```
-- Switch to the version [koa](http://koajs.com/) needs 
+- Switch to the version [koa](http://koajs.com/) needs
 
 ```
 n 0.11.12
@@ -43,6 +43,8 @@ sudo npm install -g bunyan
     - ```searches```
     - ```shows```
     - ```listings```
+
+- Rename ```config.json.example``` file to ```config.json``` and enter all applicable keys where you see ```XXX```
 - Run Bloodhound
 
 ```
