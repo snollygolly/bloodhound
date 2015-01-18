@@ -1,7 +1,7 @@
 var passport = require('koa-passport');
 var settings = require('./settings');
 var Promise = require('../plugins/base/common').Promise;
-var config = require('../plugins/config.json');
+var config = require('../config.json');
 
 passport.serializeUser(function(user, done) {
   done(null, user)

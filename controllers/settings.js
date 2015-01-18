@@ -1,5 +1,5 @@
 var settings = require("../models/settings");
-var config = require('../plugins/config.json');
+var config = require('../config.json');
 //logging
 var log = require("../plugins/base/common.js").log;
 

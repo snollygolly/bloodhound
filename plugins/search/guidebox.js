@@ -3,7 +3,7 @@ module.exports = SearchPlugin;
 
 //Initialize Plugin.
 function SearchPlugin() {
-  var config = require('../config.json');
+  var config = require('../../config.json');
   this.info = {};
   this.info.slug = "guidebox";
   this.info.name = "Guidebox JSON API";

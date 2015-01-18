@@ -7,7 +7,7 @@ module.exports = Search;
 var log = require("./base/common.js").log;
 
 function Search() {
-  config = require('./config.json');
+  config = require('../config.json');
   this.config = config.search
 
   this.plugins = {};

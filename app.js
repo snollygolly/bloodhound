@@ -19,7 +19,7 @@ app.use(hbs.middleware({
   defaultLayout: 'main'
 }));
 
-var config = require('./plugins/config.json');
+var config = require('./config.json');
 app.keys = config.app.data.session_keys;
 
 app.use(session());
