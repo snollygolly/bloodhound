@@ -102,8 +102,17 @@ search.getListingByID = Promise.coroutine(function* (id) {
     //increase the counters
     currentResult++;
     var result = results.shift();
+    //format it into an episode object
+    var episodeObj = {
+      episode_number : (totalResults - currentResult) + 1,
+      season_number : common.padNumber(parseInt(result.episode_number)),
+      air_date : result.first_aired,
+      link : "http://thetvdb.com/?tab=series&id=" + id + "&id=" + result.tvdb,
+      title : result.title,
+      description: result.overview
+    };
     //start building the season
-    if (result.season_number != currentSeason || currentResult == totalResults){
+    if (result.season_number != currentSeason){
       //should we push the season object to the listing?
       if (seasonObj.episodes.length != 0){
         listing.seasons.unshift(seasonObj);
@@ -114,15 +123,12 @@ search.getListingByID = Promise.coroutine(function* (id) {
       seasonObj.season = common.padNumber(result.season_number);
       seasonObj.episodes = [];
     }
-    var episodeObj = {
-      episode_number : totalResults - currentResult,
-      season_number : common.padNumber(parseInt(result.episode_number)),
-      air_date : result.first_aired,
-      link : "http://thetvdb.com/?tab=series&id=" + id + "&id=" + result.tvdb,
-      title : result.title,
-      description: result.overview
-    };
     seasonObj.episodes.unshift(episodeObj);
+    if (currentResult == totalResults){
+      //this is the last iteration
+      listing.seasons.unshift(seasonObj);
+    }
+
   }
   listing.total_episodes = totalResults;
   return listing;
