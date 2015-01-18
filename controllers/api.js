@@ -112,7 +112,7 @@ exports.removeShow = function * removeShow() {
     else{
       if (this.isAuthenticated()) {
         var user = yield settings.getUser(this.session.passport.user._id);
-        index = user.collection.indexOf(parseInt(this.request.body.show_id));
+        index = user.collection.indexOf(this.request.body.show_id);
         if (index === -1){
           //they already have the show in their colleciton, let's not add it again
           throw new Error("This show isnt in your collection");
