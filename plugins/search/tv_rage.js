@@ -73,6 +73,7 @@ search.getListingByID = Promise.coroutine(function* (id) {
   var listing = {};
   listing.show_id = id;
   listing.seasons = [];
+  episodes = 0;
   //loop through each season
   for (index in rawEpList) {
     if (rawEpList[index]["$"]){
@@ -90,10 +91,12 @@ search.getListingByID = Promise.coroutine(function* (id) {
         link : rawEpList[index].episode[showIndex].link.shift(),
         title : rawEpList[index].episode[showIndex].title.shift()
       };
+      episodes++;
       seasonObj.episodes.push(episodeObj);
     }
     listing.seasons.push(seasonObj);
   }
+  listing.total_episodes = episodes;
   return listing;
 });
 

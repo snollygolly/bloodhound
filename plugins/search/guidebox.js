@@ -124,6 +124,7 @@ search.getListingByID = Promise.coroutine(function* (id) {
     };
     seasonObj.episodes.unshift(episodeObj);
   }
+  listing.total_episodes = totalResults;
   return listing;
 });
 
