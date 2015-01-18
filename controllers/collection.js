@@ -57,7 +57,7 @@ function getColor (show, listing, user){
     red: "danger",
     green: "success",
     yellow: "warning",
-    blue: "primary",
+    blue: "info",
     grey: "default"
   };
   var color;
@@ -108,5 +108,8 @@ function isInFuture(dateString) {
 function isToday(dateString) {
   var now = moment();
   var then = moment(dateString, "YYYY-MM-DD");
-  return moment(then).isSame(now);
+  if (moment(then).diff(now, 'days') === 0){
+    return true;
+  }
+  return false;
 }
