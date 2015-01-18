@@ -18,11 +18,7 @@
       </thead>
       <tbody id="collection">
         {{#each shows}}
-        {{#if_eq status "DEAD"}}
-        <tr class="collection-row danger" id="show-{{global_id}}">
-        {{else}}
-        <tr class="collection-row info" id="show-{{global_id}}">
-        {{/if_eq}}
+        <tr class="collection-row" id="show-{{global_id}}">
           <td class="collection-show-name col-md-11">{{name}}</td>
           <td class="collection-show-button col-md-1">
             <button class="btn btn-default remove_show" data-show="{{global_id}}" data-name="{{name}}" role="button">Remove</a>
