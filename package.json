@@ -1,0 +1,33 @@
+{
+  "name": "bloodhound",
+  "version": "1.0.0",
+  "description": "It finds TV. It's good.",
+  "main": "app.js",
+  "dependencies": {
+    "bluebird": "^2.4.2",
+    "bunyan": "^1.2.3",
+    "cradle": "^0.6.9",
+    "koa": "^0.13.0",
+    "koa-bodyparser": "^1.3.0",
+    "koa-generic-session": "^1.3.0",
+    "koa-hbs": "^0.6.0",
+    "koa-passport": "^1.1.3",
+    "koa-router": "^3.7.0",
+    "koa-static-folder": "^0.1.3",
+    "moment": "^2.8.4",
+    "passport": "^0.2.1",
+    "passport-twitter": "^1.0.2",
+    "request": "^2.51.0",
+    "xml2js": "^0.4.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:drevil55/bloodhound.git"
+  },
+  "author": "Matt Horning",
+  "license": "ISC"
+}

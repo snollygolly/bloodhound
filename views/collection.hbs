@@ -1,0 +1,36 @@
+    <div>
+      <h3>{{{headline}}}
+        {{#if user._id}}
+        <span class="pull-right">
+          <a href="/collection/manage" class="btn btn-default" role="button">Manage Your Collection</a>
+        </span>
+        {{/if}}
+      </h3>
+
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Show</th>
+          <th>Last Episode</th>
+          <th>Show Page</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each shows}}
+        {{#if_eq status "DEAD"}}
+        <tr class="danger">
+        {{else}}
+        <tr class="info">
+        {{/if_eq}}
+          <td>{{name}}</td>
+          <td>{{last_episode.title}} / {{last_episode.air_date}}</td>
+          <td>
+            <a class="btn btn-default" href="/show/{{global_id}}" role="button">Go</a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    <hr>

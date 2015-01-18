@@ -1,0 +1,35 @@
+    <div>
+      <h3>{{{headline}}}</h3>
+    </div>
+    <br>
+    <div class="form-inline">
+      <div class="form-group">
+        <label for="show_name">Show Name</label>
+        <input class="form-control" id="show_name" placeholder="Enter show to add">
+      </div>
+      <button type="submit" id="add_show" class="btn btn-default">Add</button>
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Show</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody id="collection">
+        {{#each shows}}
+        {{#if_eq status "DEAD"}}
+        <tr class="collection-row danger" id="show-{{global_id}}">
+        {{else}}
+        <tr class="collection-row info" id="show-{{global_id}}">
+        {{/if_eq}}
+          <td class="collection-show-name col-md-11">{{name}}</td>
+          <td class="collection-show-button col-md-1">
+            <button class="btn btn-default remove_show" data-show="{{global_id}}" data-name="{{name}}" role="button">Remove</a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    <hr>

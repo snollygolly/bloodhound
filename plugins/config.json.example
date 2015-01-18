@@ -1,0 +1,30 @@
+{
+   "app":{
+      "data":{
+         "session_keys":[
+            "XXX"
+         ],
+         "passport_twitter":{
+            "consumerKey":"XXX",
+            "consumerSecret":"XXX"
+         }
+      }
+   },
+   "search":{
+      "plugins":[
+         "tv_rage",
+         "guidebox"
+      ],
+      "data":{
+         "guidebox":{
+            "api_key":"XXX"
+         }
+      }
+   },
+   "acquire":{
+
+   },
+   "display":{
+
+   }
+}
