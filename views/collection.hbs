@@ -18,11 +18,7 @@
       </thead>
       <tbody>
         {{#each shows}}
-        {{#if_eq status "DEAD"}}
-        <tr class="danger">
-        {{else}}
-        <tr class="info">
-        {{/if_eq}}
+        <tr class="{{color}}">
           <td>{{name}}</td>
           <td>{{last_episode.title}} / {{last_episode.air_date}}</td>
           <td>

@@ -64,6 +64,8 @@ exports.mockUser = {
   plugins: {
     search: "guidebox"
   },
-  collection: [169],
-  viewing_history: {}
+  collection: ["modern_family_2008"],
+  viewing_history: {
+    "modern_family_2008": []
+  }
 };

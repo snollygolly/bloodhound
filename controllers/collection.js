@@ -1,5 +1,6 @@
 var Search = require('../plugins/search.js');
 var settings = require('../models/settings');
+var moment = require("../plugins/base/common.js").moment;
 //logging
 var log = require("../plugins/base/common.js").log;
 
@@ -15,8 +16,11 @@ exports.index = function * index() {
     for (var i=0; i<user.collection.length; i++) {
       show = yield search.getShowByID(user.collection[i], user.plugins);
       listing = yield search.getListingByID(user.collection[i], user.plugins);
-      show.last_episode = listing.seasons.pop().episodes.pop();
-      //TODO: get the listing and do better comparison of dates for color coding
+      //set the color style for this row
+      prunedListing = pruneFutureShows(listing);
+      show.last_episode = prunedListing.seasons[prunedListing.seasons.length - 1].episodes.pop();
+      show.color = getColor(show, prunedListing, user);
+      //add show to the collection
       shows.push(show);
     }
     yield this.render('collection', {user: user, headline: "My Collection", shows: shows});
@@ -47,3 +51,62 @@ exports.manage = function * manage() {
   }
   //show = yield search.searchForShow("bar rescue");
 };
+
+function getColor (show, listing, user){
+  var colors = {
+    red: "danger",
+    green: "success",
+    yellow: "warning",
+    blue: "primary",
+    grey: "default"
+  };
+  var color;
+  //get rid of any future shows from the listing for comparisons
+  //pass it the show, listing, and user, and it decides what the color code is depending on logic here
+  if (user.viewing_history[show.global_id].length >= listing.total_episodes){
+    //they've seen them all
+    if (show.status == "DEAD"){
+      return colors.red;
+    }
+    if (show.status == "LIVE"){
+      return colors.yellow;
+    }
+  }
+  //get the last non-future episode
+  if (user.viewing_history[show.global_id].length == listing.watchable_episodes - 1 && isToday(show.last_episode.air_date)){
+    return colors.blue;
+  }
+  if (user.viewing_history[show.global_id].length < listing.watchable_episodes){
+    return colors.green;
+  }
+  //something went wrong
+  return colors.grey;
+}
+
+function pruneFutureShows (listing){
+  //pass it in a listing and it passes that listing to you back without episodes in the future
+  var currentSeason = listing.seasons.pop();
+  listing.watchable_episodes = listing.total_episodes;
+  //we're only checking the latest season, that should be good enough
+  for (var i=0; i<currentSeason.episodes.length; i++) {
+    if (isInFuture(currentSeason.episodes[i].air_date)){
+      currentSeason.episodes.splice(i, 1);
+      //take one from the count to make it all match up
+      listing.watchable_episodes--;
+    }
+  }
+  listing.seasons.push(currentSeason);
+  return listing;
+}
+
+function isInFuture(dateString) {
+  var now = moment();
+  var then = moment(dateString, "YYYY-MM-DD");
+  return moment(then).isAfter(now);
+}
+
+function isToday(dateString) {
+  var now = moment();
+  var then = moment(dateString, "YYYY-MM-DD");
+  return moment(then).isSame(now);
+}
