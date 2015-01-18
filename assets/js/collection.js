@@ -17,13 +17,6 @@ $( document ).ready(function() {
         $newRow = $(".collection-row").last().clone();
         $newRow.removeClass();
         $newRow.addClass("collection-row");
-        if (show.status == "LIVE"){
-          //set the color based on the status
-          statusColor = "info";
-        }else{
-          statusColor = "danger";
-        }
-        $newRow.addClass(statusColor);
         $newRow.attr("id", "show-" + show.show_id);
         $(".collection-show-name", $newRow).html(show.name);
         $(".collection-show-button", $newRow).find("button").attr("data-show", show.show_id);
