@@ -1,5 +1,6 @@
 # Bloodhound
-Makes TV more awesome.
+###Makes TV more awesome.
+A hosted version of the software can be found here: [Bloodhound.TV](http://bloodhound.tv)
 
 ## Installation
 - Make sure the latest version of [node](http://nodejs.org/) is installed
