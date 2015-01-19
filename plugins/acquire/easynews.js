@@ -40,6 +40,46 @@ acquire.findShowURLs = Promise.coroutine(function* (name, episode) {
     throw new Error('Bad username/password at acquire.findShowURLs (' + this.info.slug + ' plugin)');
   }
   $ = cheerio.load(response.body);
-  var urls = $(".rRow1").find(".autounrarlink").html();
+  var urls = [];
+  //loop through each row
+  $(".rRow1, .rRow2").each(function(i, elem) {
+    var url = {};
+    url.name = $(elem).find(".autounrarlink").text();
+    url.link = $(elem).find("a").attr("href");
+    url.size = getSize(url.name);
+    var languages = [];
+    $(elem).find("img").each(function(i, img) {
+      //look for any thumbnail images
+      log.warn("image: ", $(img).attr("title"));
+      var language = $(img).attr("title");
+      if (languages.indexOf(language) === -1){
+        //there's a lanugage
+        languages.push(language);
+      }
+    });
+
+    url.languages = languages;
+    urls.push(url);
+  });
+  log.warn(urls);
   return urls;
 });
+
+
+
+function getSize(name){
+  //pass it a name and it tells what res it is
+  if (name.indexOf("480p") > -1){
+    return "480p";
+  }
+  if (name.indexOf("720p") > -1){
+    return "720p";
+  }
+  if (name.indexOf("1080p") > -1){
+    return "1080p";
+  }
+  if (name.indexOf("1080i") > -1){
+    return "1080i";
+  }
+  return "unknown";
+}
