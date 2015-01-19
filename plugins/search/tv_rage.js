@@ -83,15 +83,17 @@ search.getListingByID = Promise.coroutine(function* (id) {
     seasonObj = {};
     seasonObj.season = seasonNum;
     seasonObj.episodes = [];
+    //this isn't being used at the moment because i've found dupes.
+    //episode_number : parseInt(rawEpList[index].episode[showIndex].epnum)
     for (showIndex in rawEpList[index].episode) {
+      episodes++;
       episodeObj = {
-        episode_number : parseInt(rawEpList[index].episode[showIndex].epnum),
+        episode_number : episodes,
         season_number : common.padNumber(parseInt(rawEpList[index].episode[showIndex].seasonnum)),
         air_date : rawEpList[index].episode[showIndex].airdate.shift(),
         link : rawEpList[index].episode[showIndex].link.shift(),
         title : rawEpList[index].episode[showIndex].title.shift()
       };
-      episodes++;
       seasonObj.episodes.push(episodeObj);
     }
     listing.seasons.push(seasonObj);
