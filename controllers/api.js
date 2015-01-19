@@ -133,3 +133,30 @@ exports.removeShow = function * removeShow() {
     this.response.status = 500;
   }
 }
+
+exports.findShowURLs = function * findShowURLs() {
+  var Acquire = require("../plugins/acquire.js");
+  var acquire = new Acquire();
+  //try{
+    this.type = "application/json";
+    bodyObj = {};
+    if (!this.query.name){
+      throw new Error("No name specified");
+    }
+    if (!this.query.episode){
+      throw new Error("No episode specified");
+    }
+    else{
+      var plugins = {acquire: "easynews"};
+      var urls = yield acquire.findShowURLs(this.query.name, this.query.episode, plugins);
+      bodyObj.urls = urls;
+      bodyObj.status = "OK";
+    }
+    this.body = JSON.stringify(bodyObj);
+  //}catch (err){
+  //  log.warn("controllers/api.findShowURLs: " + err);
+  //  bodyObj.error = err.toString();
+  //  this.body = JSON.stringify(bodyObj);
+  //  this.response.status = 500;
+  //}
+}
