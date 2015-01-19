@@ -3,6 +3,8 @@ var settings = require('../models/settings');
 var moment = require("../plugins/base/common.js").moment;
 //logging
 var log = require("../plugins/base/common.js").log;
+var isToday = require("../plugins/base/common.js").isToday;
+var isInFuture = require("../plugins/base/common.js").isInFuture;
 
 exports.index = function * index() {
   //try{
@@ -101,19 +103,4 @@ function pruneFutureShows (listing){
   }
   listing.seasons.push(currentSeason);
   return listing;
-}
-
-function isInFuture(dateString) {
-  var now = moment();
-  var then = moment(dateString, "YYYY-MM-DD");
-  return moment(then).isAfter(now);
-}
-
-function isToday(dateString) {
-  var now = moment();
-  var then = moment(dateString, "YYYY-MM-DD");
-  if (moment(then).diff(now, 'days') === 0){
-    return true;
-  }
-  return false;
 }

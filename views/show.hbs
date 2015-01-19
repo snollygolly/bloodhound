@@ -57,14 +57,21 @@
                   class="info"
                 {{/if}}
                 >
-
                   <td class="col-md-1">
                   {{#if ../../user._id}}
                   <div class="checkbox watch-checkbox-div">
-                    <label>
+                    <label
+                    {{#unless aired}}
+                      class="disabled"
+                    {{/unless}}
+                    >
                       <input type="checkbox" class="season-{{../../season}} collection-watch" data-episode="{{episode_number}}"
-                      {{#if watched}}
+                      {{#if aired}}
+                        {{#if watched}}
                         checked
+                        {{/if}}
+                      {{else}}
+                        disabled
                       {{/if}}
                       > Watched
                     </label>

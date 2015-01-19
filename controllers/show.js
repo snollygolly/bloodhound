@@ -2,6 +2,7 @@ var Search = require('../plugins/search.js');
 var settings = require("../models/settings");
 //logging
 var log = require("../plugins/base/common.js").log;
+var isInFuture = require("../plugins/base/common.js").isInFuture;
 
 exports.info = function * info() {
   //28764 - Bar Rescue, 37007 - Catch a Contractor, 6207 - The Soup, 18411 - Leverage
@@ -25,6 +26,11 @@ exports.info = function * info() {
           listing.seasons[i].episodes[j].watched = true;
         }else{
           listing.seasons[i].episodes[j].watched = false;
+        }
+        if (isInFuture(listing.seasons[i].episodes[j].air_date)){
+          listing.seasons[i].episodes[j].aired = false;
+        }else{
+          listing.seasons[i].episodes[j].aired = true;
         }
       }
     }

@@ -20,3 +20,20 @@ exports.padNumber = function(number) {
   var zero = 2 - number.toString().length + 1;
   return Array(+(zero > 0 && zero)).join("0") + number;
 }
+
+exports.isInFuture = function(dateString) {
+  var moment = exports.moment;
+  var now = exports.moment();
+  var then = moment(dateString, "YYYY-MM-DD");
+  return moment(then).isAfter(now);
+}
+
+exports.isToday = function(dateString) {
+  var moment = exports.moment;
+  var now = moment();
+  var then = moment(dateString, "YYYY-MM-DD");
+  if (moment(then).diff(now, 'days') === 0){
+    return true;
+  }
+  return false;
+}
