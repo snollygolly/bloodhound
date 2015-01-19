@@ -23,19 +23,7 @@ git clone https://gitlab.com/drevil55/bloodhound.git
 
 ```
 cd bloodhound
-npm install
-```
-- Install [nodemon](https://www.npmjs.com/package/nodemon)
 
-```
-sudo npm install -g nodemon
-```
-
-- Install [bunyan](https://www.npmjs.com/package/bunyan)
-
-```
-sudo npm install -g bunyan
-```
 - Download and run [CouchDB](http://couchdb.apache.org/)
 - Open the CouchDB web admin panel: [Futon](http://127.0.0.1:5984/)
 - Create the following databases:
@@ -49,6 +37,6 @@ sudo npm install -g bunyan
 - Run Bloodhound
 
 ```
-nodemon --harmony-generators app.js | bunyan
+npm start
 ```
 - Open [Bloodhound](http://127.0.0.1:3000) and enjoy :)
