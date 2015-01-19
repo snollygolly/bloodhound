@@ -15,11 +15,12 @@ exports.info = function * info() {
     log.info("show.js: getting info for show id: " + this.params.id);
     //history = user.viewing_history[this.params.id];
     var search = new Search();
-    show = yield search.getShowByID(this.params.id, user.plugins);
-    listing = yield search.getListingByID(this.params.id, user.plugins);
+    var show = yield search.getShowByID(this.params.id, user.plugins);
+    var listing = yield search.getListingByID(this.params.id, user.plugins);
     //loop through each season
     for (var i=0; i<listing.seasons.length; i++) {
       //and every episode in that season
+      var episodes = 0;
       for (var j=0; j<listing.seasons[i].episodes.length; j++) {
         //if the episode number (int) in the current episode is in the "viewing_history" array, set watched to true
         if (user.viewing_history[this.params.id] && user.viewing_history[this.params.id].indexOf(listing.seasons[i].episodes[j].episode_number) > -1){
@@ -27,12 +28,15 @@ exports.info = function * info() {
         }else{
           listing.seasons[i].episodes[j].watched = false;
         }
+        //check for shows in the future
         if (isInFuture(listing.seasons[i].episodes[j].air_date)){
           listing.seasons[i].episodes[j].aired = false;
         }else{
           listing.seasons[i].episodes[j].aired = true;
         }
+        episodes++;
       }
+      listing.seasons[i].total_episodes = episodes;
     }
     show.last_episode = listing.seasons[listing.seasons.length - 1].episodes[listing.seasons[listing.seasons.length - 1].episodes.length - 1];
     //TODO: get the listing and do better comparison of dates for color coding
