@@ -23,7 +23,8 @@ git clone https://gitlab.com/drevil55/bloodhound.git
 
 ```
 cd bloodhound
-
+npm install
+```
 - Download and run [CouchDB](http://couchdb.apache.org/)
 - Open the CouchDB web admin panel: [Futon](http://127.0.0.1:5984/)
 - Create the following databases:
