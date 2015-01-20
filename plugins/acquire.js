@@ -45,5 +45,5 @@ acquire.findShowURLs = Promise.coroutine(function* (name, episode, plugins) {
   }
   log.debug("Acquire: Attempting to get show URLs: " + name);
   urls = yield this.plugins[plugins.acquire].findShowURLs(name, episode);
-  return urls
+  return urls;
 });
