@@ -44,9 +44,10 @@ acquire.findShowURLs = Promise.coroutine(function* (name, episode) {
   //loop through each row
   $(".rRow1, .rRow2").each(function(i, elem) {
     var url = {};
-    url.name = $(elem).find(".autounrarlink").text();
     url.link = $(elem).find("a").attr("href");
-    url.size = getSize(url.name);
+    url.name = url.link.split("/").pop();
+    url.size = $(elem).find(".fSize").text();
+    url.quality = getQuality(url.name);
     var languages = [];
     $(elem).find("img").each(function(i, img) {
       //look for any thumbnail images
@@ -67,7 +68,7 @@ acquire.findShowURLs = Promise.coroutine(function* (name, episode) {
 
 
 
-function getSize(name){
+function getQuality(name){
   //pass it a name and it tells what res it is
   if (name.indexOf("480p") > -1){
     return "480p";
