@@ -9,6 +9,10 @@ var passport = require('koa-passport');
 var session = require('koa-generic-session');
 
 var app = koa();
+
+// This is for use in tests.
+module.exports = app;
+
 app.use(bodyParser());
 app.use(serve('./assets'));
 
