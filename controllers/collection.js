@@ -70,6 +70,10 @@ exports.index = function * index() {
         }
       }
 
+      if(!lastEpisodeFound) {
+        // TODO: @snollygolly Some kind of handling when no episode is available
+      }
+
       show.color = getColor(show, prunedListing, user);
       //add show to the collection
       shows.push(show);
