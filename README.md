@@ -5,6 +5,7 @@ A hosted version of the software can be found here: [Bloodhound.TV](http://blood
 ## Installation
 - Make sure the latest version of [node](http://nodejs.org/) is installed
 - Install [n](https://www.npmjs.com/package/n)
+- Make sure to install and have [Redis](http://redis.io/) running.
 
 ```
 sudo npm install -g n
@@ -26,14 +27,6 @@ cd bloodhound
 npm install
 ```
 - Download and run [CouchDB](http://couchdb.apache.org/)
-- Open the CouchDB web admin panel: [Futon](http://127.0.0.1:5984/)
-- Create the following databases:
-    - ```users```
-    - ```index```
-    - ```searches```
-    - ```shows```
-    - ```listings```
-
 - Rename ```config.json.example``` file to ```config.json``` and enter all applicable keys where you see ```XXX```
 - Run Bloodhound
 

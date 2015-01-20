@@ -7,6 +7,7 @@ var bodyParser = require('koa-bodyparser');
 require('./models/auth');
 var passport = require('koa-passport');
 var session = require('koa-generic-session');
+var redisStorage = require('koa-redis');
 
 var app = koa();
 
@@ -26,7 +27,10 @@ app.use(hbs.middleware({
 var config = require('./config.json');
 app.keys = config.app.data.session_keys;
 
-app.use(session());
+app.use(session({
+  cookie: {maxAge: 1000 * 60 * 5},
+  store : redisStorage()
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(router(app));
