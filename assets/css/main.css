@@ -1,8 +1,19 @@
+body {
+	padding-top: 50px;
+	padding-bottom: 20px;
+}
+
+footer {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+}
+
 .watch-checkbox-div {
-  margin: 0;
+	margin: 0;
 }
 
 .disabled {
-  color: #ccc;
-  cursor: not-allowed !important;
+	color: #ccc;
+	cursor: not-allowed !important;
 }
