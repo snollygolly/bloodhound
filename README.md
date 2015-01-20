@@ -27,14 +27,6 @@ cd bloodhound
 npm install
 ```
 - Download and run [CouchDB](http://couchdb.apache.org/)
-- Open the CouchDB web admin panel: [Futon](http://127.0.0.1:5984/)
-- Create the following databases:
-    - ```users```
-    - ```index```
-    - ```searches```
-    - ```shows```
-    - ```listings```
-
 - Rename ```config.json.example``` file to ```config.json``` and enter all applicable keys where you see ```XXX```
 - Run Bloodhound
 
