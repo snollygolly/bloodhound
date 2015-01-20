@@ -6,6 +6,7 @@ A hosted version of the software can be found here: [Bloodhound.TV](http://blood
 - Make sure the latest version of [node](http://nodejs.org/) is installed
 - Install [n](https://www.npmjs.com/package/n)
 - Make sure to install and have [Redis](http://redis.io/) running.
+- Make sure to install and have [CouchDB](http://couchdb.apache.org/) running.
 
 ```
 sudo npm install -g n
@@ -26,7 +27,6 @@ git clone https://gitlab.com/drevil55/bloodhound.git
 cd bloodhound
 npm install
 ```
-- Download and run [CouchDB](http://couchdb.apache.org/)
 - Rename ```config.json.example``` file to ```config.json``` and enter all applicable keys where you see ```XXX```
 - Run Bloodhound
 
