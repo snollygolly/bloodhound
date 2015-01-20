@@ -39,6 +39,10 @@ hbs.registerHelper('if_eq', function(a, b, opts) {
     return opts.inverse(this);
 });
 
+hbs.registerHelper('copyright_year', function(opts) {
+  return new Date().getFullYear();
+});
+
 var requestTime = function(headerName){
   return function *(next){
     var start = new Date();
