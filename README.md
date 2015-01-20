@@ -33,6 +33,7 @@ npm install
     - ```searches```
     - ```shows```
     - ```listings```
+    - ```downloads```
 
 - Rename ```config.json.example``` file to ```config.json``` and enter all applicable keys where you see ```XXX```
 - Run Bloodhound

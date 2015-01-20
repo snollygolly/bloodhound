@@ -34,18 +34,18 @@ var getID = Promise.coroutine(function* (id, plugin) {
   //give us the global id and the plugin id want want
   if (id === undefined){
     //something went wrong
-    throw new Error('No valued provided for id in search.translateID');
+    throw new Error('No valued provided for id in search.getID');
   }
   if (plugin === undefined){
     //something went wrong
-    throw new Error('No valued provided for plugin in search.translateID');
+    throw new Error('No valued provided for plugin in search.getID');
   }
   try {
     doc = yield db.getDoc(id, "index");
   }
   catch (err){
     //an index doesn't exist
-    throw new Error('No document found (' + id + ') in search.translateID');
+    throw new Error('No document found (' + id + ') in search.getID');
   }
 
   try {
