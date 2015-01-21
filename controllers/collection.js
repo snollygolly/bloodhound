@@ -18,13 +18,13 @@ exports.index = function * index() {
     var shows = [];
     var search = new Search();
     for (var i=0; i<user.collection.length; i++) {
-      show = yield search.getShowByID(user.collection[i], user.plugins);
-      listing = yield search.getListingByID(user.collection[i], user.plugins);
+      var show = yield search.getShowByID(user.collection[i], user.plugins);
+      var listing = yield search.getListingByID(user.collection[i], user.plugins);
       //set the color style for this row
-      prunedListing = pruneFutureShows(listing);
+      var prunedListing = pruneFutureShows(listing);
       // Now that we have only the episodes we actually need, it's time to grab
       // the next episode a user should watch of their kick butt TV show.
-      currentShow = user.viewing_history[show.global_id];
+      var currentShow = user.viewing_history[show.global_id];
       // We need to sort to make sure we get the highest episode number.
       currentShow.sort(function(a, b) {
         return a - b;

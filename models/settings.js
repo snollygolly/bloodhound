@@ -1,5 +1,6 @@
 var db = require("../plugins/base/db.js");
 var common = require("../plugins/base/common.js");
+var log = common.log;
 var Promise = common.Promise;
 
 exports.getUser = Promise.coroutine(function * (id) {
