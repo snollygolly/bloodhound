@@ -19,7 +19,7 @@ n 0.11
 - Checkout the code from the repository
 
 ```
-git clone https://gitlab.com/drevil55/bloodhound.git
+git clone https://github.com/snollygolly/bloodhound.git
 ```
 - Go into that directory and install packages
 
