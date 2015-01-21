@@ -44,7 +44,7 @@ exports.createUser = Promise.coroutine(function * (profile, strategy) {
       nickname: profile.displayName,
       strategy: strategy,
       plugins: {
-        search: "tv_rage"
+        search: "guidebox"
       },
       collection: [],
       viewing_history: {}
