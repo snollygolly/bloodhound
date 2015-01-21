@@ -6,7 +6,7 @@ var bodyParser = require('koa-bodyparser');
 //for passport
 require('./models/auth');
 var passport = require('koa-passport');
-var session = require('koa-sess');
+var session = require('koa-generic-session');
 var redisStorage = require('koa-redis');
 
 var app = koa();
