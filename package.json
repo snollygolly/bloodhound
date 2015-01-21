@@ -32,7 +32,8 @@
   "scripts": {
     "install": "make install",
     "start": "./node_modules/.bin/nodemon --harmony-generators app.js | ./node_modules/.bin/bunyan",
-    "test": "make test"
+    "test": "make test",
+    "clear-db": "make clear-db"
   },
   "repository": {
     "type": "git",
