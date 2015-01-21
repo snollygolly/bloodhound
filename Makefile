@@ -11,6 +11,6 @@ install:
 	curl -X PUT http://127.0.0.1:5984/index && \
 	curl -X PUT http://127.0.0.1:5984/shows && \
 	curl -X PUT http://127.0.0.1:5984/searches && \
-	curl -X PUT http://127.0.0.1:5984/listing \
+	curl -X PUT http://127.0.0.1:5984/listings \
 
 .PHONY: test
