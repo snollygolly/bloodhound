@@ -42,7 +42,6 @@ exports.index = function * index() {
         for (var j=0; j<listing.seasons.length; j++) {
           //looping through the episodes
           for (var k=0; k<listing.seasons[j].episodes.length; k++) {
-            log.warn("match listing", listing.seasons[j].episodes[k]);
             if (listing.seasons[j].episodes[k].episode_number == epToWatch){
               show.last_episode = listing.seasons[j].episodes[k];
               break;
