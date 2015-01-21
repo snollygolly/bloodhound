@@ -24,56 +24,35 @@ exports.index = function * index() {
       prunedListing = pruneFutureShows(listing);
       // Now that we have only the episodes we actually need, it's time to grab
       // the next episode a user should watch of their kick butt TV show.
-      currentShow     = user.viewing_history[show.global_id];
+      currentShow = user.viewing_history[show.global_id];
       // We need to sort to make sure we get the highest episode number.
       currentShow.sort(function(a, b) {
         return a - b;
       });
-
-      lastWatchedSode = currentShow[currentShow.length - 1];
-
-      var lastEpisodeFound = false;
-      // Now we run through the loop of seasons.
-      for(i = 0; i < prunedListing.seasons.length - 1; i++) {
-        // Grab the current season.
-        var currentSeason = prunedListing.seasons[i];
-        // Check the id of the last episode of the season. If it's lower than
-        // our last watched episode, we move along. Otherwise...
-        var lastSeasonEpisode = currentSeason.episodes.pop();
-        if(lastSeasonEpisode.episode_number > lastWatchedSode) {
-          // Now we execute a binary search on these episodes.
-          var min  = 0,
-              max  = currentSeason.episodes.length-1,
-              spot = Math.floor((min + max) / 2);
-
-          while(min != max) {
-            if(currentSeason.episodes[spot].episode_number > lastWatchedSode+1) {
-              max = spot;
-            }
-
-            if(currentSeason.episodes[spot].episode_number < lastWatchedSode+1) {
-              min = spot;
-            }
-
-            if(currentSeason.episodes[spot].episode_number == lastWatchedSode+1) {
-              lastEpisodeFound = true;
-              show.last_episode = currentSeason.episodes[spot];
-              break;
-            }
-
-            spot = Math.floor((min + max) / 2);
-          }
-        }
-
-        if(lastEpisodeFound) {
+      var epToWatch = 0;
+      for(l = 0; l < listing.total_episodes; l++) {
+        if (!currentShow[l] || currentShow[l] != (l+1)){
+          //if there's a break in the sequence
+          epToWatch = (l+1);
           break;
         }
       }
-
-      if(!lastEpisodeFound) {
-        // TODO: @snollygolly Some kind of handling when no episode is available
+      if (epToWatch != 0){
+        //looping through the seasons
+        for (var j=0; j<listing.seasons.length; j++) {
+          //looping through the episodes
+          for (var k=0; k<listing.seasons[j].episodes.length; k++) {
+            log.warn("match listing", listing.seasons[j].episodes[k]);
+            if (listing.seasons[j].episodes[k].episode_number == epToWatch){
+              show.last_episode = listing.seasons[j].episodes[k];
+              break;
+            }
+          }
+          if (show.last_episode){
+            break;
+          }
+        }
       }
-
       show.color = getColor(show, prunedListing, user);
       //add show to the collection
       shows.push(show);

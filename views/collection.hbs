@@ -20,7 +20,11 @@
         {{#each shows}}
         <tr class="{{color}}">
           <td>{{name}}</td>
-          <td>{{last_episode.title}} / {{last_episode.air_date}}</td>
+          {{#if last_episode}}
+            <td>{{last_episode.title}} / {{last_episode.air_date}}</td>
+          {{else}}
+            <td>No Episodes To Watch</td>
+          {{/if}}
           <td>
             <a class="btn btn-default" href="/show/{{global_id}}" role="button">Go</a>
           </td>
