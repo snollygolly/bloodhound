@@ -8,11 +8,13 @@ var isInFuture = require("../plugins/base/common.js").isInFuture;
 
 exports.index = function * index() {
   //try{
+    var user = {};
     if (this.isAuthenticated()) {
-      var user = yield settings.getUser(this.session.passport.user._id);
+      user = yield settings.getUser(this.session.passport.user._id);
     }else{
-      var user = settings.mockUser;
+      user = settings.mockUser;
     }
+
     var shows = [];
     var search = new Search();
     for (var i=0; i<user.collection.length; i++) {
@@ -20,7 +22,58 @@ exports.index = function * index() {
       listing = yield search.getListingByID(user.collection[i], user.plugins);
       //set the color style for this row
       prunedListing = pruneFutureShows(listing);
-      show.last_episode = prunedListing.seasons[prunedListing.seasons.length - 1].episodes.pop();
+      // Now that we have only the episodes we actually need, it's time to grab
+      // the next episode a user should watch of their kick butt TV show.
+      currentShow     = user.viewing_history[show.global_id];
+      // We need to sort to make sure we get the highest episode number.
+      currentShow.sort(function(a, b) {
+        return a - b;
+      });
+
+      lastWatchedSode = currentShow[currentShow.length - 1];
+
+      var lastEpisodeFound = false;
+      // Now we run through the loop of seasons.
+      for(i = 0; i < prunedListing.seasons.length - 1; i++) {
+        // Grab the current season.
+        var currentSeason = prunedListing.seasons[i];
+        // Check the id of the last episode of the season. If it's lower than
+        // our last watched episode, we move along. Otherwise...
+        var lastSeasonEpisode = currentSeason.episodes.pop();
+        if(lastSeasonEpisode.episode_number > lastWatchedSode) {
+          // Now we execute a binary search on these episodes.
+          var min  = 0,
+              max  = currentSeason.episodes.length-1,
+              spot = Math.floor((min + max) / 2);
+
+          while(min != max) {
+            if(currentSeason.episodes[spot].episode_number > lastWatchedSode+1) {
+              max = spot;
+            }
+
+            if(currentSeason.episodes[spot].episode_number < lastWatchedSode+1) {
+              min = spot;
+            }
+
+            if(currentSeason.episodes[spot].episode_number == lastWatchedSode+1) {
+              lastEpisodeFound = true;
+              show.last_episode = currentSeason.episodes[spot];
+              break;
+            }
+
+            spot = Math.floor((min + max) / 2);
+          }
+        }
+
+        if(lastEpisodeFound) {
+          break;
+        }
+      }
+
+      if(!lastEpisodeFound) {
+        // TODO: @snollygolly Some kind of handling when no episode is available
+      }
+
       show.color = getColor(show, prunedListing, user);
       //add show to the collection
       shows.push(show);
