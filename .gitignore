@@ -51,4 +51,7 @@ node_modules
 config.json
 
 # Redis dump file
-dumb.rdb
+dump.rdb
+
+#SASS source
+*.sass-cache
