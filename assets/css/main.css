@@ -4,7 +4,8 @@ body {
 }
 
 footer {
-	position: fixed;
+	background-color: #FFFFFF;
+	position: absolute;
 	bottom: 0px;
 	width: 100%;
 }
