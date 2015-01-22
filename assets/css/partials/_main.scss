@@ -5,9 +5,8 @@ body {
 
 footer {
 	background-color: #FFFFFF;
-	position: absolute;
-	bottom: 0px;
 	width: 100%;
+	border-top: 1px solid #EEEEEE;
 }
 
 .watch-checkbox-div {
@@ -15,6 +14,6 @@ footer {
 }
 
 .disabled {
-	color: #ccc;
+	color: #CCCCCC;
 	cursor: not-allowed !important;
 }

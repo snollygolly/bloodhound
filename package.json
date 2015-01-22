@@ -23,15 +23,25 @@
     "koa-redis": "^1.0.0"
   },
   "devDependencies": {
-    "mocha": "^2.1.0",
     "chai": "^1.10.0",
-    "supertest": "^0.15.0",
+    "co-mocha": "^1.1.0",
     "co-supertest": "0.0.7",
-    "co-mocha": "^1.1.0"
+    "grunt": "^0.4.5",
+    "grunt-autoprefixer": "~0.7.2",
+    "grunt-concurrent": "^1.0.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-cssmin": "~0.9.0",
+    "grunt-contrib-sass": "~0.7.3",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-nodemon": "*",
+    "mocha": "^2.1.0",
+    "supertest": "^0.15.0"
   },
   "scripts": {
     "install": "make install",
-    "start": "./node_modules/.bin/nodemon --harmony-generators app.js | ./node_modules/.bin/bunyan",
+    "start": "grunt | ./node_modules/.bin/bunyan",
     "test": "make test",
     "clear-db": "make clear-db"
   },
