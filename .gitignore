@@ -49,3 +49,6 @@ node_modules
 
 # Custom
 config.json
+
+# Redis dump file
+dumb.rdb
