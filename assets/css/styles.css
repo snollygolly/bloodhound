@@ -1,0 +1,27 @@
+/** MODULES **/
+/*@import 'modules/';*/
+/** PARTIALS **/
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+footer {
+  background-color: #FFFFFF;
+  width: 100%;
+  border-top: 1px solid #EEEEEE;
+}
+
+.watch-checkbox-div {
+  margin: 0;
+}
+
+.disabled {
+  color: #CCCCCC;
+  cursor: not-allowed !important;
+}
+
+/** VENDORS **/
+/*@import 'vendors/';*/
+
+/*# sourceMappingURL=styles.css.map */
