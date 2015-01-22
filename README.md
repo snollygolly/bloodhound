@@ -14,7 +14,7 @@ sudo npm install -g n
 - Switch to the version [koa](http://koajs.com/) needs
 
 ```
-n 0.11
+n 0.11.14
 ```
 - Checkout the code from the repository
 

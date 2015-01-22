@@ -81,15 +81,15 @@ app.get('/', function *(){
 });
 
 app.get('/auth/twitter',
-passport.authenticate('twitter')
-)
+  passport.authenticate('twitter')
+);
 
 app.get('/auth/twitter/callback',
-passport.authenticate('twitter', {
-  successRedirect: '/collection',
-  failureRedirect: '/'
-})
-)
+  passport.authenticate('twitter', {
+    successRedirect: '/collection',
+    failureRedirect: '/'
+  })
+);
 
 app.get('/collection', collection.index);
 app.get('/collection/manage', collection.manage);
