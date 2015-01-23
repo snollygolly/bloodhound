@@ -1,33 +1,48 @@
-var Promise = require("./common.js").Promise;
-var cradle = Promise.promisifyAll(require('cradle'));
-var moment = require("./common.js").moment;
+var Promise = require("./common.js").Promise,
+    cradle  = Promise.promisifyAll(require('cradle')),
+    moment  = require("./common.js").moment;
 
-exports.getDoc = Promise.coroutine(function * (id, dbName) {
-  try{
-    var db = new(cradle.Connection)().database(dbName);
-  }catch (err) {
-    throw new Error('DB: Get: Connection to database "' + dbName + '" failed');
+// A custom Error just for database problems.
+function CouchDBError(message) {
+  this.name = "CouchDBError";
+  this.message = (message || "");
+}
+CouchDBError.prototype = Error.prototype;
+
+// Connects to a database and returns the DB object.
+var connectToDatabase = function(dbName) {
+  try {
+    return new(cradle.Connection)().database(dbName);
+  } catch (err) {
+    throw new CouchDBError('DB: Get: Connection to database "' + dbName + '" failed');
   }
-  try{
-    doc = yield db.getAsync(id);
-  }catch (err) {
-    throw new Error('DB: Get: Get of "' + id + '" failed');
+};
+
+// Grabs a document from a database in CouchDB.
+exports.getDoc = Promise.coroutine(function * (id, dbName) {
+  try {
+    var db = connectToDatabase(dbName);
+    var doc = yield db.getAsync(id);
+  } catch (err) {
+    if(err.name === "CouchDBError") throw err;
+
+    throw new CouchDBError('DB: Get: Get of "' + id + '" failed');
   }
   return doc;
 });
 
+// Saves a document in a database in CouchDB.
 exports.saveDoc = Promise.coroutine(function * (doc, dbName) {
-  try{
-    var db = new(cradle.Connection)().database(dbName);
-  }catch (err) {
-    throw new Error('DB: Save: Connection to database "' + dbName + '" failed');
+  try {
+    var db = connectToDatabase(dbName);
+    var returnVal = yield db.saveAsync(doc._id, doc);
+
+    doc._id = returnVal.id;
+    doc._rev = returnVal.rev;
+    return doc;
+  } catch (err) {
+    if(err.name === "CouchDBError") throw err;
+
+    throw new CouchDBError('DB: Save: Save of "' + doc._id + '" failed');
   }
-  try{
-    returnVal = yield db.saveAsync(doc._id, doc);
-  }catch (err) {
-    throw new Error('DB: Save: Save of "' + doc._id + '" failed');
-  }
-  doc._id = returnVal.id;
-  doc._rev = returnVal.rev;
-  return doc;
 });
