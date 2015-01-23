@@ -16,20 +16,6 @@ $(document).ready(function() {
       } else {
         show = data.show;
         //add them to the collection
-        // $newRow = $(".collection-row").last().clone();
-        // $newRow.removeClass();
-        // $newRow.addClass("collection-row");
-        // $newRow.attr("id", "show-" + show.show_id);
-        // $(".collection-show-name", $newRow).html(show.name);
-        // $(".collection-show-button", $newRow).find("button").attr("data-show", show.show_id);
-        // $(".collection-show-button", $newRow).find("button").attr("data-name", show.name);
-
-        // <tr class="collection-row" id="show-{{global_id}}">
-        //   <td class="collection-show-name col-md-11">{{name}}</td>
-        //   <td class="collection-show-button col-md-1">
-        //     <button class="btn btn-default remove_show" data-show="{{global_id}}" data-name="{{name}}" role="button">Remove</a>
-        //   </td>
-        // </tr>
         $newRow = $('<tr class="collection-row" id="show-' + show.global_id + '"></tr>');
         $newNameCol = $('<td class="collection-show-name col-md-11">' + show.name + '</td>');
         $newRemoveCol = $('<td class="collection-show-button col-md-1"></td>');
