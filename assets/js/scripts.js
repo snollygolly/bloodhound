@@ -14,6 +14,9 @@ $(document).ready(function() {
         //something went wrong
         displayAlert("warning", "Oh no! " + data.error);
       } else {
+        if ($('.collection-row').length === 0) {
+          $('#empty_collection').remove();
+        }
         show = data.show;
         //add them to the collection
         $newRow = $('<tr class="collection-row" id="show-' + show.global_id + '"></tr>');
@@ -52,6 +55,9 @@ $(document).ready(function() {
         if (data.status == "OK") {
           // console.log($(this).parent().parent());
           $("#show-" + show_id).remove();
+          if ($('.collection-row').length === 0) {
+            $('<tr id="empty_collection"><td class="col-md-12" colspan="2"><i>You have no shows in your collection.</i></td></tr>').appendTo('#collection');
+          }
           //give the alert
           displayAlert("success", "You've removed '" + show_name + "' (" + show_id + ") from your collection");
         }
