@@ -3,7 +3,6 @@
 /** PARTIALS **/
 body {
   padding-top: 50px;
-  padding-bottom: 20px;
 }
 
 footer {
@@ -11,14 +10,30 @@ footer {
   width: 100%;
   border-top: 1px solid #EEEEEE;
 }
+footer p {
+  margin: 10px 0px;
+}
 
 .watch-checkbox-div {
   margin: 0;
 }
 
+.collection-season-watch, .collection-show-watch {
+  margin-right: 15px;
+}
+
 .disabled {
   color: #CCCCCC;
   cursor: not-allowed !important;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  vertical-align: middle;
 }
 
 /** VENDORS **/

@@ -17,6 +17,7 @@ exports.info = function * info() {
     var search = new Search();
     var show = yield search.getShowByID(this.params.id, user.plugins);
     var listing = yield search.getListingByID(this.params.id, user.plugins);
+    show.show_episodes = 0;
     //loop through each season
     for (var i=0; i<listing.seasons.length; i++) {
       //and every episode in that season
@@ -35,6 +36,7 @@ exports.info = function * info() {
           listing.seasons[i].episodes[j].aired = true;
         }
         episodes++;
+        show.show_episodes++;
       }
       listing.seasons[i].total_episodes = episodes;
     }

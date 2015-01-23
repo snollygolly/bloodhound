@@ -4,9 +4,10 @@ A hosted version of the software can be found here: [Bloodhound.TV](http://blood
 
 ## Installation
 - Make sure the latest version of [node](http://nodejs.org/) is installed
-- Install [n](https://www.npmjs.com/package/n)
 - Make sure to install and have [Redis](http://redis.io/) running.
 - Make sure to install and have [CouchDB](http://couchdb.apache.org/) running.
+
+- Install [n](https://www.npmjs.com/package/n)
 
 ```
 sudo npm install -g n

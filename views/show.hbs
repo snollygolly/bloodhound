@@ -7,7 +7,7 @@
     <tbody>
       <tr>
         <td>Seasons</td>
-        <td>{{show.seasons}}</td>
+        <td id="season_count">{{show.seasons}}</td>
       </tr>
       <tr>
         <td>Last Episode</td>
@@ -28,6 +28,7 @@
     </tbody>
   </table>
   <br>
+  <p><button class="btn btn-default collection-show-watch" role="button">Watch All</button>Mark all <strong>{{show.show_episodes}}</strong> episodes in all seasons as watched</p>
   <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     {{#each listing.seasons}}
     <div class="panel panel-default">
@@ -44,8 +45,7 @@
             {{#if ../user._id}}
             <thead>
               <tr>
-                <td><button class="btn btn-default collection-season-watch" role="button" data-season="{{season}}">Watch</button></td>
-                <td>Mark all <strong>{{total_episodes}}</strong> episodes in season {{season}} as watched</td>
+                <td colspan="4"><button class="btn btn-default collection-season-watch" role="button" data-season="{{season}}">Watch</button>Mark all <strong>{{total_episodes}}</strong> episodes in season {{season}} as watched</td>
               </tr>
             </thead>
             {{/if}}
