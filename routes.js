@@ -42,6 +42,17 @@ app.get("/auth/twitter/callback",
   })
 );
 
+//-- Facebook
+app.get("/auth/facebook",
+  passport.authenticate("facebook")
+);
+
+app.get("/auth/facebook/callback",
+  passport.authenticate("facebook", {
+    successRedirect: "/collection",
+    failureRedirect: "/"
+  })
+);
 
 // Collections.
 app.get("/collection", collection.index);
