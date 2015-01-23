@@ -9,7 +9,7 @@ A hosted version of the software can be found here: [Bloodhound.TV](http://blood
 - Install [n](https://www.npmjs.com/package/n)
 - Install [grunt](http://gruntjs.com/)
 ```
-sudo npm install -g n grunt
+sudo npm install -g n
 ```
 - Switch to the version [koa](http://koajs.com/) needs
 
