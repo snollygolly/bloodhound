@@ -1,18 +1,20 @@
-var koa     = require('koa');
-var hbs     = require('koa-hbs');
-var router  = require('koa-router');
-var serve   = require('koa-static-folder');
-var bodyParser = require('koa-bodyparser');
+// Koa middle ware.
+var koa        = require('koa'),
+    hbs        = require('koa-hbs'),
+    router     = require('koa-router'),
+    serve      = require('koa-static-folder'),
+    bodyParser = require('koa-bodyparser'),
+    session    = require('koa-generic-session'),
+    redisStorage = require('koa-redis');
+
 //for passport
 require('./models/auth');
 var passport = require('koa-passport');
-var session = require('koa-generic-session');
-var redisStorage = require('koa-redis');
 
 var app = koa();
 
-// This is for use in tests.
-module.exports = app;
+exports.app      = app;
+exports.passport = passport;
 
 app.use(bodyParser());
 app.use(serve('./assets'));
@@ -24,6 +26,7 @@ app.use(hbs.middleware({
   defaultLayout: 'main'
 }));
 
+// Passport binding.
 var config = require('./config.json');
 app.keys = config.app.data.session_keys;
 
@@ -35,7 +38,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(router(app));
 
-
+// Question: @jfeigel : Would it be useful to break handlebars
+// helper registrations to a separate, dedicated file?
 hbs.registerHelper('if_eq', function(a, b, opts) {
   if(a == b) // Or === depending on your needs
     return opts.fn(this);
@@ -47,6 +51,7 @@ hbs.registerHelper('copyright_year', function(opts) {
   return new Date().getFullYear();
 });
 
+// Adds response-time to headers.
 var requestTime = function(headerName){
   return function *(next){
     var start = new Date();
@@ -56,55 +61,17 @@ var requestTime = function(headerName){
     this.set(headerName, ms + "ms");
   }
 }
-
 app.use(requestTime('Reponse-time'));
-
-//controllers
-var collection = require('./controllers/collection');
-var show = require('./controllers/show');
-var settings = require('./controllers/settings');
-var api = require('./controllers/api');
-
-//model
-var settingsModel = require('./models/settings');
 
 //logging
 var log = require("./plugins/base/common.js").log;
 
-app.get('/', function *(){
-  if (this.isAuthenticated()) {
-    var user = yield settingsModel.getUser(this.session.passport.user._id);
-  }else{
-    var user = settingsModel.mockUser;
-  }
-  yield this.render('index', {user: user, title: "BloodHound", content: "Index"});
-});
-
-app.get('/auth/twitter',
-  passport.authenticate('twitter')
-);
-
-app.get('/auth/twitter/callback',
-  passport.authenticate('twitter', {
-    successRedirect: '/collection',
-    failureRedirect: '/'
-  })
-);
-
-app.get('/collection', collection.index);
-app.get('/collection/manage', collection.manage);
-
-app.get('/show/:id', show.info);
-
-app.get('/settings', settings.index);
-
-app.post('/api/toggleWatch', api.toggleWatch);
-app.post('/api/addShowByName', api.addShowByName);
-app.post('/api/removeShow', api.removeShow);
+// Now we bind routes.
+require('./routes');
 
 if (process.env.NODE_ENV == "production"){
   port = 80;
-}else{
+} else {
   port = 3000;
 }
 log.info("Bloodhound is now running on port " + port);

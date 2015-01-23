@@ -17,15 +17,13 @@ function SearchPlugin() {
 };
 
 
-//Search prototype
-
-var search = SearchPlugin.prototype;
-
-var common = require("../base/common.js");
-var log = common.log;
-var Promise = common.Promise;
-var request = common.request;
-var moment = common.moment;
+// Search prototype
+var search  = SearchPlugin.prototype,
+    common  = require("../base/common.js"),
+    log     = common.log,
+    Promise = common.Promise,
+    request = common.request,
+    moment  = common.moment;
 
 search.searchForShow = Promise.coroutine(function* (name) {
   var response = yield request.getAsync(this.info.path + "search/title/" + name).get(0);
