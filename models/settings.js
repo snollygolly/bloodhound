@@ -1,5 +1,5 @@
-var db = require("../plugins/base/db.js");
-var common = require("../plugins/base/common.js");
+var db = require("../helpers/db.js");
+var common = require("../helpers/common.js");
 var log = common.log;
 var Promise = common.Promise;
 

@@ -1,8 +1,8 @@
 var Search = require('../plugins/search.js');
 var settings = require("../models/settings");
 //logging
-var log = require("../plugins/base/common.js").log;
-var isInFuture = require("../plugins/base/common.js").isInFuture;
+var log = require("../helpers/common.js").log;
+var isInFuture = require("../helpers/common.js").isInFuture;
 
 exports.info = function * info() {
   //28764 - Bar Rescue, 37007 - Catch a Contractor, 6207 - The Soup, 18411 - Leverage

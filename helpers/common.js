@@ -18,15 +18,15 @@ if(process.env.NODE_ENV != "test") {
 
 var bunyan = require('bunyan');
 exports.log = bunyan.createLogger(
-  {
-    name: 'Bloodhound',
-    streams: streams,
-    src: true,
-    serializers: {
-      req: bunyan.stdSerializers.req,
-      res: bunyan.stdSerializers.res
-    }
+{
+  name: 'Bloodhound',
+  streams: streams,
+  src: true,
+  serializers: {
+    req: bunyan.stdSerializers.req,
+    res: bunyan.stdSerializers.res
   }
+}
 );
 
 // Removes spaces from a string and replaces them with underscores.
@@ -53,8 +53,8 @@ exports.padNumber = function(number) {
 // has already occurred. Returns a boolean.
 exports.isInFuture = function(dateString) {
   var moment = exports.moment,
-      now    = exports.moment(),
-      then   = moment(dateString, "YYYY-MM-DD");
+  now    = exports.moment(),
+  then   = moment(dateString, "YYYY-MM-DD");
 
   return moment(then).isAfter(now);
 };
@@ -62,8 +62,8 @@ exports.isInFuture = function(dateString) {
 // Determines whether a date is today or not. Returns a boolean.
 exports.isToday = function(dateString) {
   var moment = exports.moment,
-      now    = moment(),
-      then   = moment(dateString, "YYYY-MM-DD");
+  now    = moment(),
+  then   = moment(dateString, "YYYY-MM-DD");
 
   if(moment(then).diff(now, 'days') === 0) {
     return true;

@@ -15,6 +15,7 @@ var app = koa();
 
 exports.app      = app;
 exports.passport = passport;
+exports.hbs      = hbs;
 
 app.use(bodyParser());
 app.use(serve('./assets'));
@@ -38,19 +39,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(router(app));
 
-// Question: @jfeigel : Would it be useful to break handlebars
-// helper registrations to a separate, dedicated file?
-hbs.registerHelper('if_eq', function(a, b, opts) {
-  if(a == b) // Or === depending on your needs
-    return opts.fn(this);
-  else
-    return opts.inverse(this);
-});
-
-hbs.registerHelper('copyright_year', function(opts) {
-  return new Date().getFullYear();
-});
-
 // Adds response-time to headers.
 var requestTime = function(headerName){
   return function *(next){
@@ -64,7 +52,10 @@ var requestTime = function(headerName){
 app.use(requestTime('Reponse-time'));
 
 //logging
-var log = require("./plugins/base/common.js").log;
+var log = require("./helpers/common.js").log;
+
+// Let's do some handlebars!
+require('./helpers/handlebars');
 
 // Now we bind routes.
 require('./routes');

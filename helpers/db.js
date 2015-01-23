@@ -1,6 +1,6 @@
 var Promise = require("./common.js").Promise,
-    cradle  = Promise.promisifyAll(require('cradle')),
-    moment  = require("./common.js").moment;
+cradle  = Promise.promisifyAll(require('cradle')),
+moment  = require("./common.js").moment;
 
 // A custom Error just for database problems.
 function CouchDBError(message) {

@@ -19,7 +19,7 @@ function SearchPlugin() {
 
 // Search prototype
 var search  = SearchPlugin.prototype,
-    common  = require("../base/common.js"),
+    common  = require("../../helpers/common.js"),
     log     = common.log,
     Promise = common.Promise,
     request = common.request,
