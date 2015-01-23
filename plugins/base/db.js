@@ -23,12 +23,12 @@ exports.getDoc = Promise.coroutine(function * (id, dbName) {
   try {
     var db = connectToDatabase(dbName);
     var doc = yield db.getAsync(id);
+    return doc;
   } catch (err) {
     if(err.name === "CouchDBError") throw err;
 
     throw new CouchDBError('DB: Get: Get of "' + id + '" failed');
   }
-  return doc;
 });
 
 // Saves a document in a database in CouchDB.
