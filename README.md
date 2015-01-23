@@ -6,11 +6,10 @@ A hosted version of the software can be found here: [Bloodhound.TV](http://blood
 - Make sure the latest version of [node](http://nodejs.org/) is installed
 - Make sure to install and have [Redis](http://redis.io/) running.
 - Make sure to install and have [CouchDB](http://couchdb.apache.org/) running.
-
 - Install [n](https://www.npmjs.com/package/n)
-
+- Install [grunt](http://gruntjs.com/)
 ```
-sudo npm install -g n
+sudo npm install -g n grunt
 ```
 - Switch to the version [koa](http://koajs.com/) needs
 
