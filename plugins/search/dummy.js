@@ -3,7 +3,7 @@ module.exports = SearchPlugin;
 
 //Initialize Plugin.
 
-var log = require("../base/common.js").log;
+var log = require("../../helpers/common.js").log;
 
 function SearchPlugin() {
   this.info = {};
@@ -18,7 +18,7 @@ function SearchPlugin() {
 
 var search = SearchPlugin.prototype;
 
-var common = require("../base/common.js");
+var common = require("../../helpers/common.js");
 var Promise = common.Promise;
 var request = common.request;
 var xml2js = common.xml2js;
