@@ -52,8 +52,12 @@
             <tbody>
               {{#each episodes}}
               <tr id="episode-{{episode_number}}"
+                {{#if aired}}
                 {{#if watched}}
                 class="info"
+                {{/if}}
+                {{else}}
+                class="active"
                 {{/if}}
                 >
                 <td class="col-md-1">
