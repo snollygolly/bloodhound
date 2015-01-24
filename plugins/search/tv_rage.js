@@ -64,7 +64,10 @@ search.getShowByID = Promise.coroutine(function* (id) {
   jsShow = jsRes.Showinfo;
   //TODO: process the date
   //TODO: get genre and network
-  log.warn(jsShow);
+  if (!jsShow.showid){
+    //there's no show here, toss an error
+    throw new Error('No show found for \'' + id + '\' found in search.getShowByID (' + this.info.slug + ' plugin)');
+  }
   var show = {
     show_id: jsShow.showid.shift(),
     name: jsShow.showname.shift(),
