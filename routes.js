@@ -64,9 +64,23 @@ app.get("/show/:id", show.info);
 
 
 // Settings
-// Question: @snollygolly : Why is the settings route interacting directly with
-// a model?
 app.get("/settings", settings.index);
+
+// Login
+app.get('/login', function *() {
+  if (this.isAuthenticated()) {
+    // However, if a user is authenticated, we grab that user's information
+    // using their passport session information.
+    user = yield settingsModel.getUser(this.session.passport.user._id);
+    yield this.render('index', {
+      user: user,
+      title: "BloodHound",
+      content: "Index"
+    });
+  }else{
+    yield this.render('login');
+  }
+});
 
 
 // API posts.
