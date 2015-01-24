@@ -50,8 +50,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:drevil55/bloodhound.git"
+    "url": "https://github.com/snollygolly/bloodhound.git"
   },
   "author": "Matt Horning",
-  "license": "ISC"
+  "license": "MIT"
 }

@@ -40,8 +40,8 @@ if(typeof config.app.data.passport_facebook !== "undefined") {
   passport.use(
     new FacebookStrategy(
       {
-        clientID: config.app.data.passport_facebook.clientId,
-        clientSecret: config.app.data.passport_facebook.clientSecret,
+        clientID: config.app.data.passport_facebook.appId,
+        clientSecret: config.app.data.passport_facebook.appSecret,
         callbackURL: domainStr + '/auth/facebook/callback',
         enableProof: false
       },
