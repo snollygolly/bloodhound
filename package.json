@@ -21,6 +21,7 @@
     "passport": "^0.2.1",
     "passport-facebook": "^1.0.3",
     "passport-twitter": "^1.0.2",
+    "pre-git": "^0.1.1",
     "request": "^2.51.0",
     "xml2js": "^0.4.4"
   },
@@ -48,6 +49,9 @@
     "test": "make test",
     "clear-db": "make clear-db"
   },
+  "pre-push": [
+    "npm test"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/snollygolly/bloodhound.git"
