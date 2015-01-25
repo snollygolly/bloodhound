@@ -10,6 +10,9 @@ var collection = require('./controllers/collection'),
 // models
 var settingsModel = require('./models/settings');
 
+//config
+var config = require('./config.json');
+
 // Handles user assignment based on authentication.
 app.get('/', function *() {
   // We assign settings to mockUser to start.
@@ -90,6 +93,27 @@ app.get('/login', function *() {
       title: "BloodHound",
       content: "Index"
     });
+  }else{
+    yield this.render('login');
+  }
+});
+
+app.get('/admin', function *() {
+  if (this.isAuthenticated()) {
+    // However, if a user is authenticated, we grab that user's information
+    // using their passport session information.
+    user = yield settingsModel.getUser(this.session.passport.user._id);
+    if (user.admin === true){
+      yield this.render('admin', {
+        config: JSON.stringify(config, undefined, 2)
+      });
+    }else{
+      yield this.render('index', {
+        user: user,
+        title: "BloodHound",
+        content: "Index"
+      });
+    }
   }else{
     yield this.render('login');
   }
