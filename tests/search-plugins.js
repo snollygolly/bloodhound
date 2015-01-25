@@ -15,7 +15,9 @@ function fetchPlugins() {
   return fs.readdirAsync(process.cwd()+"/plugins/search").then(function(dir) {
     var plugins = {};
     for(var i=dir.length-1; i >= 0; i--) {
-      plugins[dir[i]] = require('../plugins/search/'+dir[i]);
+      if(dir[i] !== 'README.md') {
+        plugins[dir[i]] = require('../plugins/search/'+dir[i]);
+      }
     }
 
     return new Promise(function(resolve) { resolve(plugins); });
@@ -25,19 +27,34 @@ function fetchPlugins() {
 // Put your tests in here. I know, it's odd.
 function testSuite(plugin, pluginName) {
   describe("Search plugin: "+pluginName, function () {
-    plugin = new plugin();
     it("should have method .searchForShow", function(done) {
-      expect(plugin.searchForShow()).to.exist;
+      var searchPlugin = new plugin();
+      expect(searchPlugin.searchForShow).to.exist();
       done();
     });
 
     it("should have method .getShowByID", function(done) {
-      expect(plugin.getShowByID()).to.exist;
+      var searchPlugin = new plugin();
+      expect(searchPlugin.getShowByID).to.exist();
       done();
     });
 
-    it("should have method .getListingByID", function(done){
-      expect(plugin.getListingByID()).to.exist;
+    it("should have method .getListingByID", function(done) {
+      var searchPlugin = new plugin();
+      expect(searchPlugin.getListingByID).to.exist();
+      done();
+    });
+
+    it("should return the proper object for .searchForShow", function*(done) {
+      var searchPlugin = new plugin();
+      var show = yield searchPlugin.searchForShow("Archer");
+      expect(show.show_id).to.exist;
+      expect(show.name).to.exist;
+      expect(show.started).to.exist;
+
+      expect(show.show_id).to.be.a('string');
+      expect(show.name).to.be.a('string');
+      expect(show.started).to.be.a('string');
       done();
     });
   });
