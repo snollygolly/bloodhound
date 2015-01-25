@@ -25,7 +25,7 @@ var xml2js = common.xml2js;
 
 search.searchForShow = Promise.coroutine(function* (name) {
   var show = {
-    id: "99999",
+    show_id: "99999",
     name: "Name Of Show",
     started: "2014",
     ended: "0",
@@ -33,4 +33,22 @@ search.searchForShow = Promise.coroutine(function* (name) {
     seasons: "1",
   };
   return show;
+});
+
+search.getShowByID = Promise.coroutine(function* (id) {
+  var show = {
+    show_id: "99999",
+    name: "Archer",
+    started: "2014",
+    status: "LIVE",
+    seasons: 5,
+    runtime: 30,
+    showlink: "http://showlink.show"
+  };
+
+  return show;
+});
+
+search.getListingByID = Promise.coroutine(function* (id) {
+  
 });
