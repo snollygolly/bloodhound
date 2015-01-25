@@ -4,6 +4,7 @@ var app      = require("./app").app,
 // controllers
 var collection = require('./controllers/collection'),
     show       = require('./controllers/show'),
+    episode    = require('./controllers/episode'),
     settings   = require('./controllers/settings'),
     api        = require('./controllers/api');
 
@@ -77,6 +78,9 @@ app.get("/collection/manage", collection.manage);
 
 // Shows.
 app.get("/show/:id", show.info);
+
+// Episodes.
+app.get("/episode/:id/:episode", episode.info);
 
 
 // Settings
