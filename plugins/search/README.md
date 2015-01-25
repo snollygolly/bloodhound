@@ -146,7 +146,7 @@ This is the localized ID that the search provider uses to identify this TV show.
 This is the total number of episodes provided by the listing.  This may include episodes that haven't aired yet.
 
 - `seasons`
-  - **Type:** `Object`
+  - **Type:** `Array`
 
 The seasons object contains all the seasons and episodes for this show.  The seasons object is broken down into sub-objects that we'll describe below
 
