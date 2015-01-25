@@ -82,6 +82,40 @@ function testSuite(plugin, pluginName) {
 
       done();
     });
+
+    it("should return the proper object for .getListingByID", function*(done) {
+      var searchPlugin = new plugin();
+      var show = yield searchPlugin.searchForShow("Archer");
+      var listing = yield searchPlugin.getListingByID(show.show_id);
+      expect(listing).to.exist;
+      expect(listing.show_id).to.exist;
+      expect(listing.total_episodes).to.exist;
+      expect(listing.seasons).to.exist;
+      expect(listing.seasons[0]).to.exist;
+      expect(listing.seasons[0].season).to.exist;
+      expect(listing.seasons[0].episodes).to.exist;
+      expect(listing.seasons[0].episodes[0]).to.exist;
+      expect(listing.seasons[0].episodes[0].episode_number).to.exist;
+      expect(listing.seasons[0].episodes[0].season_number).to.exist;
+      expect(listing.seasons[0].episodes[0].air_date).to.exist;
+      expect(listing.seasons[0].episodes[0].link).to.exist;
+      expect(listing.seasons[0].episodes[0].title).to.exist;
+
+      expect(listing.show_id).to.be.a('string');
+      expect(listing.total_episodes).to.be.a('number');
+      expect(listing.seasons).to.be.a('object');
+      expect(listing.seasons[0]).to.be.a('array');
+      expect(listing.seasons[0].season).to.be.a('string');
+      expect(listing.seasons[0].episodes).to.be.a('array');
+      expect(listing.seasons[0].episodes[0]).to.be.a('object');
+      expect(listing.seasons[0].episodes[0].episode_number).to.be.a('number');
+      expect(listing.seasons[0].episodes[0].season_number).to.be.a('string');
+      expect(listing.seasons[0].episodes[0].air_date).to.be.a('string');
+      expect(listing.seasons[0].episodes[0].link).to.be.a('string');
+      expect(listing.seasons[0].episodes[0].title).to.be.a('string');
+
+      done();
+    });
   });
 }
 
