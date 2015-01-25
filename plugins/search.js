@@ -4,7 +4,7 @@ module.exports = Search;
 //Initialize search.
 
 //logging
-var log = require("./base/common.js").log;
+var log = require("../helpers/common.js").log;
 
 function Search() {
   config = require('../config.json');
@@ -15,7 +15,7 @@ function Search() {
     Plugin = require('./search/' + this.config.plugins[index]);
     log.debug("Search: Attempting to load: " + this.config.plugins[index]);
     this.plugins[this.config.plugins[index]] = new Plugin();
-    log.info("Search: Loaded: " + this.config.plugins[index]);
+    log.debug("Search: Loaded: " + this.config.plugins[index]);
   }
 };
 
@@ -23,8 +23,8 @@ function Search() {
 //Search prototype
 
 var search = Search.prototype;
-var common = require("./base/common.js");
-var db = require("./base/db.js");
+var common = require("../helpers/common.js");
+var db = require("../helpers/db.js");
 var Promise = common.Promise;
 var request = common.request;
 var moment = common.moment;
@@ -32,6 +32,7 @@ var settings = require("../models/settings");
 
 var getID = Promise.coroutine(function* (id, plugin) {
   //give us the global id and the plugin id want want
+  log.debug("Search: getID: Requested ID with: " + id + " (" + plugin + ")")
   if (id === undefined){
     //something went wrong
     throw new Error('No valued provided for id in search.getID');
@@ -41,7 +42,7 @@ var getID = Promise.coroutine(function* (id, plugin) {
     throw new Error('No valued provided for plugin in search.getID');
   }
   try {
-    doc = yield db.getDoc(id, "index");
+    var doc = yield db.getDoc(id, "index");
   }
   catch (err){
     //an index doesn't exist
@@ -57,6 +58,10 @@ var getID = Promise.coroutine(function* (id, plugin) {
       //you can't just use the searchForShow function, the plugins aren't init-ed
       var newSearch = new Search();
       show = yield newSearch.searchForShow(doc.name, plugins);
+      //i think what is happening is that when we create a new search, we're actually getting the document again
+      //by getting it here, we ensure no document update conflicts
+      //this probably isn't super efficient.  someone smarter should fix it.
+      var doc = yield db.getDoc(id, "index");
       doc.plugin[plugin] = show.show_id;
       doc = yield db.saveDoc(doc, "index");
     }
@@ -64,6 +69,7 @@ var getID = Promise.coroutine(function* (id, plugin) {
   catch (err){
     throw err;
   }
+  log.debug("Search: getID: Returned ID: " + doc.plugin[plugin] + " (" + plugin + ")");
   return doc.plugin[plugin];
 });
 

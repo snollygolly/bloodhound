@@ -1,30 +1,30 @@
 {
-   "app":{
-      "data":{
-         "session_keys":[
-            "XXX"
-         ],
-         "passport_twitter":{
-            "consumerKey":"XXX",
-            "consumerSecret":"XXX"
-         }
-      }
-   },
-   "search":{
-      "plugins":[
-         "tv_rage",
-         "guidebox"
+  "app":{
+    "data":{
+      "session_keys":[
+        "XXX"
       ],
-      "data":{
-         "guidebox":{
-            "api_key":"XXX"
-         }
+      "passport_twitter":{
+        "consumerKey":"XXX",
+        "consumerSecret":"XXX"
       }
-   },
-   "acquire":{
+    }
+  },
+  "search":{
+    "plugins":[
+      "tv_rage",
+      "guidebox"
+    ],
+    "data":{
+      "guidebox":{
+        "api_key": "XXX"
+      }
+    }
+  },
+  "acquire":{
 
-   },
-   "display":{
+  },
+  "display":{
 
-   }
+  }
 }

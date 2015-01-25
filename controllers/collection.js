@@ -1,26 +1,57 @@
 var Search = require('../plugins/search.js');
 var settings = require('../models/settings');
-var moment = require("../plugins/base/common.js").moment;
+var moment = require("../helpers/common.js").moment;
 //logging
-var log = require("../plugins/base/common.js").log;
-var isToday = require("../plugins/base/common.js").isToday;
-var isInFuture = require("../plugins/base/common.js").isInFuture;
+var log = require("../helpers/common.js").log;
+var isToday = require("../helpers/common.js").isToday;
+var isInFuture = require("../helpers/common.js").isInFuture;
 
 exports.index = function * index() {
   //try{
+    var user = {};
     if (this.isAuthenticated()) {
-      var user = yield settings.getUser(this.session.passport.user._id);
+      user = yield settings.getUser(this.session.passport.user._id);
     }else{
-      var user = settings.mockUser;
+      user = settings.mockUser;
     }
+
     var shows = [];
     var search = new Search();
     for (var i=0; i<user.collection.length; i++) {
-      show = yield search.getShowByID(user.collection[i], user.plugins);
-      listing = yield search.getListingByID(user.collection[i], user.plugins);
+      var show = yield search.getShowByID(user.collection[i], user.plugins);
+      var listing = yield search.getListingByID(user.collection[i], user.plugins);
       //set the color style for this row
-      prunedListing = pruneFutureShows(listing);
-      show.last_episode = prunedListing.seasons[prunedListing.seasons.length - 1].episodes.pop();
+      var prunedListing = pruneFutureShows(listing);
+      // Now that we have only the episodes we actually need, it's time to grab
+      // the next episode a user should watch of their kick butt TV show.
+      var currentShow = user.viewing_history[show.global_id];
+      // We need to sort to make sure we get the highest episode number.
+      currentShow.sort(function(a, b) {
+        return a - b;
+      });
+      var epToWatch = 0;
+      for(l = 0; l < listing.total_episodes; l++) {
+        if (!currentShow[l] || currentShow[l] != (l+1)){
+          //if there's a break in the sequence
+          epToWatch = (l+1);
+          break;
+        }
+      }
+      if (epToWatch != 0){
+        //looping through the seasons
+        for (var j=0; j<listing.seasons.length; j++) {
+          //looping through the episodes
+          for (var k=0; k<listing.seasons[j].episodes.length; k++) {
+            if (listing.seasons[j].episodes[k].episode_number == epToWatch){
+              show.last_episode = listing.seasons[j].episodes[k];
+              break;
+            }
+          }
+          if (show.last_episode){
+            break;
+          }
+        }
+      }
       show.color = getColor(show, prunedListing, user);
       //add show to the collection
       shows.push(show);

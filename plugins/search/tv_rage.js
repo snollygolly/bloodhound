@@ -25,7 +25,7 @@ function SearchPlugin() {
 
 var search = SearchPlugin.prototype;
 
-var common = require("../base/common.js");
+var common = require("../../helpers/common.js");
 var log = common.log;
 var Promise = common.Promise;
 var request = common.request;
@@ -40,28 +40,42 @@ search.searchForShow = Promise.coroutine(function* (name) {
     throw new Error('No matches for \'' + searchStr + '\' found in search.searchForShow (' + this.info.slug + ' plugin)');
   }
   jsShow = jsRes.Results.show.shift();
+  //do some checking to make sure that we're not saving shows like "Archer (2009)"
+  //this results in us generating gIDs like "archer_2009_2009" which is no good
+  var showName = jsShow.name.shift();
+  var showStarted = jsShow.started.shift();
+  if (showName.indexOf(showStarted) > -1){
+    //this show has its starting year in the title, which means there's another show of this name somewhere
+    //i sure hope they all use parenthesis...
+    showName = showName.replace(" (" + showStarted + ")", "");
+  }
   var show = {
     show_id: jsShow.showid.shift(),
-    name: jsShow.name.shift(),
-    started: jsShow.started.shift()
+    name: showName,
+    started: showStarted
   };
   return show;
 });
 
 search.getShowByID = Promise.coroutine(function* (id) {
+  log.warn("getting request: " + this.info.path + "showinfo.php?sid=" + id);
   var response = yield request.getAsync(this.info.path + "showinfo.php?sid=" + id).get(0);
   var jsRes = yield xml2js.parseStringAsync(response.body);
   jsShow = jsRes.Showinfo;
   //TODO: process the date
   //TODO: get genre and network
+  if (!jsShow.showid){
+    //there's no show here, toss an error
+    throw new Error('No show found for \'' + id + '\' found in search.getShowByID (' + this.info.slug + ' plugin)');
+  }
   var show = {
     show_id: jsShow.showid.shift(),
     name: jsShow.showname.shift(),
     showlink: jsShow.showlink.shift(),
     started: jsShow.started.shift(),
     status: convertStatus(jsShow.status.shift()),
-    seasons: jsShow.seasons.shift(),
-    runtime: jsShow.runtime.shift()
+    seasons: parseInt(jsShow.seasons.shift()),
+    runtime: parseInt(jsShow.runtime.shift())
   };
   return show;
 });

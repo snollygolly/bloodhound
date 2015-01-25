@@ -1,6 +1,6 @@
 var settings = require("../models/settings");
 //logging
-var log = require("../plugins/base/common.js").log;
+var log = require("../helpers/common.js").log;
 
 
 exports.toggleWatch = function * toggleWatch() {

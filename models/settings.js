@@ -1,5 +1,6 @@
-var db = require("../plugins/base/db.js");
-var common = require("../plugins/base/common.js");
+var db = require("../helpers/db.js");
+var common = require("../helpers/common.js");
+var log = common.log;
 var Promise = common.Promise;
 
 exports.getUser = Promise.coroutine(function * (id) {
@@ -43,7 +44,7 @@ exports.createUser = Promise.coroutine(function * (profile, strategy) {
       nickname: profile.displayName,
       strategy: strategy,
       plugins: {
-        search: "tv_rage"
+        search: "guidebox"
       },
       collection: [],
       viewing_history: {}
@@ -64,8 +65,8 @@ exports.mockUser = {
   plugins: {
     search: "guidebox"
   },
-  collection: ["archer_2009"],
+  collection: ["613"],
   viewing_history: {
-    "archer_2009": []
+    "613": []
   }
 };

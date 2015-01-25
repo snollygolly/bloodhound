@@ -8,29 +8,56 @@
     "bunyan": "^1.2.3",
     "cheerio": "^0.18.0",
     "cradle": "^0.6.9",
+    "grunt": "^0.4.5",
     "koa": "^0.13.0",
     "koa-bodyparser": "^1.3.0",
     "koa-generic-session": "^1.3.0",
     "koa-hbs": "^0.6.0",
     "koa-passport": "^1.1.3",
+    "koa-redis": "^1.0.0",
     "koa-router": "^3.7.0",
     "koa-static-folder": "^0.1.3",
     "moment": "^2.8.4",
+    "nodemon": "^1.3.1",
     "passport": "^0.2.1",
+    "passport-facebook": "^1.0.3",
+    "passport-github": "^0.1.5",
     "passport-twitter": "^1.0.2",
+    "pre-git": "^0.1.1",
     "request": "^2.51.0",
-    "xml2js": "^0.4.4",
-    "nodemon": "^1.3.1"
+    "xml2js": "^0.4.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "co-mocha": "^1.1.0",
+    "co-supertest": "0.0.7",
+    "grunt": "^0.4.5",
+    "grunt-autoprefixer": "~0.7.2",
+    "grunt-cli": "^0.1.13",
+    "grunt-concurrent": "^1.0.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-cssmin": "~0.9.0",
+    "grunt-contrib-sass": "~0.7.3",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-nodemon": "*",
+    "mocha": "^2.1.0",
+    "supertest": "^0.15.0"
+  },
   "scripts": {
-    "start": "./node_modules/.bin/nodemon --harmony-generators app.js | ./node_modules/.bin/bunyan",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install": "make install",
+    "start": "./node_modules/.bin/grunt | ./node_modules/.bin/bunyan",
+    "test": "make test",
+    "clear-db": "make clear-db"
   },
+  "pre-push": [
+    "npm test"
+  ],
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:drevil55/bloodhound.git"
+    "url": "https://github.com/snollygolly/bloodhound.git"
   },
   "author": "Matt Horning",
-  "license": "ISC"
+  "license": "MIT"
 }
