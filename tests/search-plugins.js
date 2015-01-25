@@ -48,6 +48,7 @@ function testSuite(plugin, pluginName) {
     it("should return the proper object for .searchForShow", function*(done) {
       var searchPlugin = new plugin();
       var show = yield searchPlugin.searchForShow("Archer");
+      expect(show).to.exist;
       expect(show.show_id).to.exist;
       expect(show.name).to.exist;
       expect(show.started).to.exist;
@@ -55,6 +56,30 @@ function testSuite(plugin, pluginName) {
       expect(show.show_id).to.be.a('string');
       expect(show.name).to.be.a('string');
       expect(show.started).to.be.a('string');
+      done();
+    });
+
+    it("should return the proper object for .getShowByID", function*(done) {
+      var searchPlugin = new plugin();
+      var show = yield searchPlugin.searchForShow("Archer");
+      var showAgain = yield searchPlugin.getShowByID(show.show_id);
+      expect(showAgain).to.exist;
+      expect(showAgain.show_id).to.exist;
+      expect(showAgain.name).to.exist;
+      expect(showAgain.started).to.exist;
+      expect(showAgain.status).to.exist;
+      expect(showAgain.seasons).to.exist;
+      expect(showAgain.runtime).to.exist;
+      expect(showAgain.showlink).to.exist;
+
+      expect(showAgain.show_id).to.be.a('string');
+      expect(showAgain.name).to.be.a('string');
+      expect(showAgain.started).to.be.a('string');
+      expect(showAgain.status).to.be.a('string');
+      expect(showAgain.seasons).to.be.a('number');
+      expect(showAgain.runtime).to.be.a('number');
+      expect(showAgain.showlink).to.be.a('string');
+
       done();
     });
   });
