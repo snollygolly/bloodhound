@@ -52,3 +52,21 @@ if(typeof config.app.data.passport_facebook !== "undefined") {
     )
   );
 }
+
+// -- Github
+if(typeof config.app.data.passport_github !== "undefined") {
+  var GitHubStrategy = require('passport-github').Strategy;
+  passport.use(
+    new GitHubStrategy(
+      {
+        clientID: config.app.data.passport_github.clientId,
+        clientSecret: config.app.data.passport_github.clientSecret,
+        callbackURL: domainStr + '/auth/github/callback'
+      },
+      Promise.coroutine(function * (accessToken, refreshToken, profile, done) {
+        user = yield settings.createUser(profile, "github");
+        done(null, user);
+      })
+    )
+  );
+}

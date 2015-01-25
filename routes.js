@@ -54,6 +54,19 @@ app.get("/auth/facebook/callback",
   })
 );
 
+//-- GitHub
+app.get("/auth/github",
+passport.authenticate("github")
+);
+
+app.get("/auth/github/callback",
+passport.authenticate("github", {
+  successRedirect: "/collection",
+  failureRedirect: "/"
+})
+);
+
+
 // Collections.
 app.get("/collection", collection.index);
 app.get("/collection/manage", collection.manage);
