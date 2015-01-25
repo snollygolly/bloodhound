@@ -74,8 +74,8 @@ search.getShowByID = Promise.coroutine(function* (id) {
     showlink: jsShow.showlink.shift(),
     started: jsShow.started.shift(),
     status: convertStatus(jsShow.status.shift()),
-    seasons: jsShow.seasons.shift(),
-    runtime: jsShow.runtime.shift()
+    seasons: parseInt(jsShow.seasons.shift()),
+    runtime: parseInt(jsShow.runtime.shift())
   };
   return show;
 });
