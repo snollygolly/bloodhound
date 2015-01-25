@@ -4,7 +4,7 @@ module.exports = Acquire;
 //Initialize acquire.
 
 //logging
-var log = require("./base/common.js").log;
+var log = require("../helpers/common.js").log;
 
 function Acquire() {
   config = require('../config.json');
@@ -23,8 +23,8 @@ function Acquire() {
 //Acquire prototype
 
 var acquire = Acquire.prototype;
-var common = require("./base/common.js");
-var db = require("./base/db.js");
+var common  = require("../helpers/common.js");
+var db = require("../helpers/db.js");
 var Promise = common.Promise;
 var request = common.request;
 var moment = common.moment;

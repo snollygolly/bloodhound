@@ -21,7 +21,7 @@ function AcquirePlugin() {
 
 var acquire = AcquirePlugin.prototype;
 
-var common = require("../base/common.js");
+var common  = require("../../helpers/common.js");
 var log = common.log;
 var Promise = common.Promise;
 var request = common.request;

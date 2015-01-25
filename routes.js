@@ -124,3 +124,4 @@ app.get('/admin', function *() {
 app.post("/api/toggleWatch", api.toggleWatch);
 app.post("/api/addShowByName", api.addShowByName);
 app.post("/api/removeShow", api.removeShow);
+app.get('/api/findShowURLs', api.findShowURLs);
