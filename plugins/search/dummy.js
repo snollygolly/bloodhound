@@ -50,5 +50,33 @@ search.getShowByID = Promise.coroutine(function* (id) {
 });
 
 search.getListingByID = Promise.coroutine(function* (id) {
-  
+  var listing= {
+    show_id: "99999",
+    total_episodes: 2,
+    seasons: [
+      {
+        season: "01",
+        episodes: [
+          {
+            episode_number: 1,
+            season_number: "01",
+            air_date: "2012-09-27",
+            link: "http://thetvdb.com",
+            title: "Pilot",
+            description: "Holmes consults on a home invasion that resulted in murder."
+          },
+          {
+            episode_number: 2,
+            season_number: "02",
+            air_date: "2012-09-28",
+            link: "http://thetvdb.com",
+            title: "Pilot Part Deux: Electric Boogaloo",
+            description: "Something happened, it was something."
+          }
+        ]
+      }
+    ]
+  };
+
+  return listing;
 });
