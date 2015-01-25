@@ -1,0 +1,36 @@
+<div class="container">
+  <div>
+    <h3>{{headline}}</h3>
+  </div>
+  <br>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>Title</td>
+        <td><strong>{{episode.title}}</strong></td>
+      </tr>
+      <tr>
+        <td>Episode</td>
+        <td>S{{episode.season}}E{{episode.season_number}}</td>
+      </tr>
+      <tr>
+        <td>Air Date</td>
+        <td>{{episode.air_date}}</td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>
+        {{#if episode.description}}
+          {{episode.description}}
+        {{else}}
+          N/A
+        {{/if}}
+        </td>
+      </tr>
+      <tr>
+        <td>Link</td>
+        <td><a href="{{episode.link}}">{{episode.title}}</a> <i>via <a href="{{episode.link_domain}}">{{episode.formatted_link_domain}}</a></i></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
