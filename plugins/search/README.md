@@ -150,38 +150,38 @@ This is the total number of episodes provided by the listing.  This may include 
 
 The seasons object contains all the seasons and episodes for this show.  The seasons object is broken down into sub-objects that we'll describe below
 
-    - `seasons.season`
-      - **Type:** `String`
+- `seasons.season`
+  - **Type:** `String`
 
 This represents the current season the following episodes are in.  It should be preceded with a 0.  Ideally this will be fixed in the future. (see issue #44).
 
-    - `seasons.episodes`
-      - **Type:** `Array`
+- `seasons.episodes`
+  - **Type:** `Array`
 
 This should be an array of episodes that are in that season.  It's an array of sub-objects that we'll describe below.
 
-        - `seasons.episodes[x].episode_number`
-          - **Type:** `Number`
+- `seasons.episodes[x].episode_number`
+  - **Type:** `Number`
 
 This is the episode number for this episode.  This number refers to the number of total episodes.  The first episode should be `1` and the last should be the value of `total_episodes`
 
-        - `seasons.episodes[x].season_number`
-          - **Type:** `String`
+- `seasons.episodes[x].season_number`
+  - **Type:** `String`
 
 This is the episode number for this episode.  This number refers to  the position of this episode in the season.
 
-        - `seasons.episodes[x].air_date`
-          - **Type:** `String`
+- `seasons.episodes[x].air_date`
+  - **Type:** `String`
 
 This is air date for this episode.  It should be in the format `YYYY-MM-DD`.
 
-        - `seasons.episodes[x].title`
-          - **Type:** `String`
+- `seasons.episodes[x].title`
+  - **Type:** `String`
 
 This is the title of the episode.  If your search provider includes a positional indicator in the title (`S01E01`,`1x01`, etc.), please remove it.
 
-        - `seasons.episodes[x].link`
-          - **Type:** `String`
+- `seasons.episodes[x].link`
+  - **Type:** `String`
 
 This is the same for a description of this episode.
 
