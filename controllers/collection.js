@@ -1,10 +1,10 @@
 var Search = require('../plugins/search.js');
 var settings = require('../models/settings');
-var moment = require("../plugins/base/common.js").moment;
+var moment = require("../helpers/common.js").moment;
 //logging
-var log = require("../plugins/base/common.js").log;
-var isToday = require("../plugins/base/common.js").isToday;
-var isInFuture = require("../plugins/base/common.js").isInFuture;
+var log = require("../helpers/common.js").log;
+var isToday = require("../helpers/common.js").isToday;
+var isInFuture = require("../helpers/common.js").isInFuture;
 
 exports.index = function * index() {
   //try{

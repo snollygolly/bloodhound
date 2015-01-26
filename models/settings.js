@@ -1,5 +1,5 @@
-var db = require("../plugins/base/db.js");
-var common = require("../plugins/base/common.js");
+var db = require("../helpers/db.js");
+var common = require("../helpers/common.js");
 var log = common.log;
 var Promise = common.Promise;
 
@@ -65,8 +65,8 @@ exports.mockUser = {
   plugins: {
     search: "guidebox"
   },
-  collection: ["archer_2009"],
+  collection: ["613"],
   viewing_history: {
-    "archer_2009": []
+    "613": []
   }
 };

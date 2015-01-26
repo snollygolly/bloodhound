@@ -1,7 +1,7 @@
 var settings = require("../models/settings");
 var config = require('../config.json');
 //logging
-var log = require("../plugins/base/common.js").log;
+var log = require("../helpers/common.js").log;
 
 exports.index = function * index() {
   try{
