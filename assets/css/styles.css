@@ -51,4 +51,21 @@ footer p {
   color: red;
 }
 
+.Introduction {
+  font-family: 'Playfair Display SC', serif;
+  text-shadow: 1px 0px 3px black;
+}
+
+.site-info {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 18px;
+}
+.site-info i {
+  font-size: 20px;
+  font-weight: bold;
+}
+.site-info q {
+  color: black;
+}
+
 /*# sourceMappingURL=styles.css.map */
