@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/assets/css/flag-sprites.css">
+
 <div class="container">
   <div>
     <h3>{{headline}}</h3>
@@ -42,7 +44,7 @@
       <tr>
         <td>{{this}}</td>
         <td class="acquire_results">
-          <button type="button" class="btn btn-primary acquire-episode" id="acquire-{{this}}" data-id="{{../episode.global_id}}">Find S{{../episode.season}}E{{../episode.season_number}} - {{../episode.title}}</button>
+          <button type="button" class="btn btn-primary acquire-episode" data-provider="{{this}}" data-id="{{../episode.global_id}}">Find S{{../episode.season}}E{{../episode.season_number}} - {{../episode.title}}</button>
         </td>
       </tr>
       {{/each}}

@@ -36,6 +36,7 @@ acquire.findShowURLs = Promise.coroutine(function* (name, episode) {
   //fly. something to do with air travel? best to leave it in i think
   searchStr += "&fly=2";
   var response = yield request.getAsync(this.info.path + "?" + searchStr).get(0);
+  log.warn(this.info.path + "?" + searchStr);
   if (response.statusCode != 200){
     throw new Error('Bad username/password at acquire.findShowURLs (' + this.info.slug + ' plugin)');
   }

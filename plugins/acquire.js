@@ -30,7 +30,7 @@ var request = common.request;
 var moment = common.moment;
 var settings = require("../models/settings");
 
-acquire.findShowURLs = Promise.coroutine(function* (name, episode, plugins) {
+acquire.findShowURLs = Promise.coroutine(function* (name, episode, plugin) {
   if (name === undefined){
     //something went wrong
     throw new Error('No valued provided for name in acquire.findShowURLs');
@@ -39,11 +39,13 @@ acquire.findShowURLs = Promise.coroutine(function* (name, episode, plugins) {
     //something went wrong
     throw new Error('No valued provided for episode in acquire.findShowURLs');
   }
-  if (plugins === undefined){
+  if (plugin === undefined){
     //something went wrong
-    throw new Error('No valued provided for plugins in acquire.findShowURLs');
+    throw new Error('No valued provided for plugin in acquire.findShowURLs');
   }
-  log.debug("Acquire: Attempting to get show URLs: " + name);
+  var show_id = name;
+  name = name.split("_").splice(0, name.split("_").length - 1);
+  log.debug("Acquire: Attempting to get show URLs: " + show_id);
   globalID = common.formatName(name + "_" + episode).toLowerCase();
   try {
     doc = yield db.getDoc(plugins.acquire + "-" + globalID, "downloads");
@@ -55,18 +57,18 @@ acquire.findShowURLs = Promise.coroutine(function* (name, episode, plugins) {
     doc.mod_date = moment();
     nowDate = moment().add(90, "days");
   }
-  futureDate = moment(doc.mod_date).add(this.plugins[plugins.acquire].info.cache.show, "days");
+  futureDate = moment(doc.mod_date).add(this.plugins[plugin].info.cache.show, "days");
   if (nowDate > futureDate){
     //the cache is expired
     try{
-      var urls = yield this.plugins[plugins.acquire].findShowURLs(name, episode);;
+      var urls = yield this.plugins[plugin].findShowURLs(name, episode);;
     }
     catch (err){
       throw err;
     }
-    log.info("Acquire: Got show (Fresh): " + name);
-    urls._id = plugins.acquire + "-" + globalID;
-    urls.name = name;
+    log.info("Acquire: Got show (Fresh): " + show_id);
+    urls._id = plugin + "-" + globalID;
+    urls.name = show_id;
     urls.episode = episode;
     urls.mod_date = moment();
     if (doc._rev){
@@ -84,7 +86,7 @@ acquire.findShowURLs = Promise.coroutine(function* (name, episode, plugins) {
   }else{
     //the cache is still fresh
     var urls = doc;
-    log.info("Acquire: Got show (Cached): " + name);
+    log.info("Acquire: Got show (Cached): " + show_id);
   }
   return urls;
 });
