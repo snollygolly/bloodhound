@@ -51,7 +51,6 @@
     "clear-db": "make clear-db"
   },
   "pre-push": [
-    "npm test"
   ],
   "repository": {
     "type": "git",

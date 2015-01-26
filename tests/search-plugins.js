@@ -7,7 +7,8 @@ var chai = require('chai'),
     Promise = require('../helpers/common.js').Promise,
     fs   = Promise.promisifyAll(require('fs'));
 
-var expect = chai.expect;
+var expect = chai.expect,
+    should = chai.should();
 
 function fetchPlugins() {
   // This will store our plugins, with the property being the name of the plugin
@@ -103,9 +104,9 @@ function testSuite(plugin, pluginName) {
 
       expect(listing.show_id).to.be.a('string');
       expect(listing.total_episodes).to.be.a('number');
-      expect(listing.seasons).to.be.a('object');
-      expect(listing.seasons[0]).to.be.a('array');
-      expect(listing.seasons[0].season).to.be.a('string');
+      expect(listing.seasons).to.be.a('array');
+      expect(listing.seasons[0]).to.be.a('object');
+      listing.seasons[0].season.should.be.a('string');
       expect(listing.seasons[0].episodes).to.be.a('array');
       expect(listing.seasons[0].episodes[0]).to.be.a('object');
       expect(listing.seasons[0].episodes[0].episode_number).to.be.a('number');
@@ -113,7 +114,6 @@ function testSuite(plugin, pluginName) {
       expect(listing.seasons[0].episodes[0].air_date).to.be.a('string');
       expect(listing.seasons[0].episodes[0].link).to.be.a('string');
       expect(listing.seasons[0].episodes[0].title).to.be.a('string');
-
       done();
     });
   });
