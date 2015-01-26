@@ -6,7 +6,7 @@ module.exports = Acquire;
 //logging
 var log = require("../helpers/common.js").log;
 
-function Acquire() {
+function Acquire(user) {
   config = require('../config.json');
   this.config = config.acquire
 
@@ -14,7 +14,7 @@ function Acquire() {
   for (index in this.config.plugins) {
     Plugin = require('./acquire/' + this.config.plugins[index]);
     log.debug("Acquire: Attempting to load: " + this.config.plugins[index]);
-    this.plugins[this.config.plugins[index]] = new Plugin();
+    this.plugins[this.config.plugins[index]] = new Plugin(user);
     log.info("Acquire: Loaded: " + this.config.plugins[index]);
   }
 };

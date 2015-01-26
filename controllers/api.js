@@ -136,7 +136,14 @@ exports.removeShow = function * removeShow() {
 
 exports.findShowURLs = function * findShowURLs() {
   var Acquire = require("../plugins/acquire.js");
-  var acquire = new Acquire();
+  if (this.isAuthenticated()) {
+    // However, if a user is authenticated, we grab that user's information
+    // using their passport session information.
+    user = yield settings.getUser(this.session.passport.user._id);
+    var acquire = new Acquire(user);
+  }else{
+    throw new Error("No logged in user");
+  }
   //try{
     this.type = "application/json";
     bodyObj = {};

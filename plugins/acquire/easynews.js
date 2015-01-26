@@ -3,13 +3,13 @@ module.exports = AcquirePlugin;
 
 //Initialize Plugin.
 
-function AcquirePlugin() {
-  var config = require('../../config.json');
+function AcquirePlugin(user) {
   this.info = {};
   this.info.slug = "easynews";
   this.info.name = "Easynews Global Search 5";
-  this.info.username = config.acquire.data.easynews.username;
-  this.info.password = config.acquire.data.easynews.password;
+  this.info.username = user.plugin_data.acquire.easynews.username;
+  this.info.password = user.plugin_data.acquire.easynews.password;
+  this.info.size = user.plugin_data.acquire.easynews.size;
   this.info.path = "http://" + this.info.username + ":" + this.info.password + "@members.easynews.com/global5/search.html";
   this.info.cache = {
     show: 7

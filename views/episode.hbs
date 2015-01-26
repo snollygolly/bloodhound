@@ -33,4 +33,19 @@
       </tr>
     </tbody>
   </table>
+  <br>
+  <h3>Acquire Sources</h3>
+  <br>
+  <table class="table table-striped">
+    <tbody>
+      {{#each plugins}}
+      <tr>
+        <td>{{this}}</td>
+        <td class="acquire_results">
+          <button type="button" class="btn btn-primary acquire-episode" id="acquire-{{this}}" data-id="{{../episode.global_id}}">Find S{{../episode.season}}E{{../episode.season_number}} - {{../episode.title}}</button>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </div>
