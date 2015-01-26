@@ -46,9 +46,9 @@ acquire.findShowURLs = Promise.coroutine(function* (name, episode, plugin) {
   var show_id = name;
   name = name.split("_").splice(0, name.split("_").length - 1);
   log.debug("Acquire: Attempting to get show URLs: " + show_id);
-  globalID = common.formatName(name + "_" + episode).toLowerCase();
+  globalID = common.formatName(show_id + "_" + episode).toLowerCase();
   try {
-    doc = yield db.getDoc(plugins.acquire + "-" + globalID, "downloads");
+    doc = yield db.getDoc(plugin + "-" + globalID, "downloads");
     nowDate = moment();
   }
   catch (err){
