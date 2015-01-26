@@ -26,12 +26,13 @@ exports.info = function * info() {
         //find the one that matches the season_number
         var episode = listing.seasons[seasonNum-1].episodes[j];
         episode.season = formattedSeasonNum;
+        episode.global_id = show.global_id + "_" + this.params.episode;
         episode.formatted_link_domain = episode.link.split("/")[2];
         episode.link_domain = episode.link.split("/").slice(0,3).join("/");
         break;
       }
     }
-    yield this.render('episode', {user: user, headline: show.name, episode: episode});
+    yield this.render('episode', {user: user, headline: show.name, episode: episode, plugins: user.plugins.acquire});
   }catch (err){
     log.warn("controllers/show.info: " + err);
     this.response.status = 500;
