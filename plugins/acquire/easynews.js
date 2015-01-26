@@ -30,13 +30,12 @@ var cheerio = require('cheerio');
 acquire.findShowURLs = Promise.coroutine(function* (name, episode) {
   //gps=the.vampire.diaries+s05e05+%21+sample
   //name and episode, excluding samples
-  var searchStr = "gps=" + name + " " + episode + " ! sample";
+  var searchStr = "gps=" + name + " " + episode + " ! sample ! .001";
   //video i guess? / sorting
   searchStr += "&fty%5B%5D=VIDEO&s1=dsize&s1d=%2B&s2=nrfile&s2d=%2B&s3=dsize&s3d=%2B";
   //fly. something to do with air travel? best to leave it in i think
   searchStr += "&fly=2";
   var response = yield request.getAsync(this.info.path + "?" + searchStr).get(0);
-  log.warn(this.info.path + "?" + searchStr);
   if (response.statusCode != 200){
     throw new Error('Bad username/password at acquire.findShowURLs (' + this.info.slug + ' plugin)');
   }
