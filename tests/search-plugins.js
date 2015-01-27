@@ -46,7 +46,7 @@ function testSuite(plugin, pluginName) {
       done();
     });
 
-    it("should return the proper object for .searchForShow", function*(done) {
+    it("should return the proper object for .searchForShow", function*() {
       var searchPlugin = new plugin();
       var show = yield searchPlugin.searchForShow("Archer");
       expect(show).to.exist;
@@ -57,10 +57,9 @@ function testSuite(plugin, pluginName) {
       expect(show.show_id).to.be.a('string');
       expect(show.name).to.be.a('string');
       expect(show.started).to.be.a('string');
-      done();
     });
 
-    it("should return the proper object for .getShowByID", function*(done) {
+    it("should return the proper object for .getShowByID", function*() {
       var searchPlugin = new plugin();
       var show = yield searchPlugin.searchForShow("Archer");
       var showAgain = yield searchPlugin.getShowByID(show.show_id);
@@ -80,11 +79,9 @@ function testSuite(plugin, pluginName) {
       expect(showAgain.seasons).to.be.a('number');
       expect(showAgain.runtime).to.be.a('number');
       expect(showAgain.showlink).to.be.a('string');
-
-      done();
     });
 
-    it("should return the proper object for .getListingByID", function*(done) {
+    it("should return the proper object for .getListingByID", function*() {
       var searchPlugin = new plugin();
       var show = yield searchPlugin.searchForShow("Archer");
       var listing = yield searchPlugin.getListingByID(show.show_id);
@@ -114,7 +111,6 @@ function testSuite(plugin, pluginName) {
       expect(listing.seasons[0].episodes[0].air_date).to.be.a('string');
       expect(listing.seasons[0].episodes[0].link).to.be.a('string');
       expect(listing.seasons[0].episodes[0].title).to.be.a('string');
-      done();
     });
   });
 }
