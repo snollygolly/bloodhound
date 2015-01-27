@@ -133,3 +133,37 @@ exports.removeShow = function * removeShow() {
     this.response.status = 500;
   }
 }
+
+exports.findShowURLs = function * findShowURLs() {
+  var Acquire = require("../plugins/acquire.js");
+  if (this.isAuthenticated()) {
+    // However, if a user is authenticated, we grab that user's information
+    // using their passport session information.
+    user = yield settings.getUser(this.session.passport.user._id);
+    var acquire = new Acquire(user);
+  }else{
+    throw new Error("No logged in user");
+  }
+  //try{
+    this.type = "application/json";
+    bodyObj = {};
+    if (!this.query.provider){
+      throw new Error("No provider specified");
+    }
+    if (!this.query.episode){
+      throw new Error("No episode specified");
+    }
+    var show_id = this.query.episode.split("_");
+    var episode_id = show_id.pop();
+    show_id = show_id.join("_");
+    var urls = yield acquire.findShowURLs(show_id, episode_id, this.query.provider);
+    bodyObj.urls = urls;
+    bodyObj.status = "OK";
+    this.body = JSON.stringify(bodyObj);
+  //}catch (err){
+  //  log.warn("controllers/api.findShowURLs: " + err);
+  //  bodyObj.error = err.toString();
+  //  this.body = JSON.stringify(bodyObj);
+  //  this.response.status = 500;
+  //}
+}
