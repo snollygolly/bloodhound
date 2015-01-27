@@ -1,77 +1,80 @@
-    <div>
-      <h3>{{{headline}}}</h3>
-    </div>
-    <input type="hidden" id="show_id" value="{{show.global_id}}">
-    <table class="table table-striped">
-          <tbody>
-          <tr>
-          <td>Seasons</td>
-          <td>{{show.seasons}}</td>
-          </tr>
-          <tr>
-          <td>Last Episode</td>
-          <td>{{show.last_episode.title}} / {{show.last_episode.air_date}}</td>
-          </tr>
-          <tr>
-          <td>Genre</td>
-          <td>N/A</td>
-          </tr>
-          <tr>
-          <td>Network</td>
-          <td>N/A</td>
-          </tr>
-          <tr>
-          <td>Status</td>
-          <td>{{show.status}}</td>
-          </tr>
-      </tbody>
-    </table>
-    <br>
-
-
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-      {{#each listing.seasons}}
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="heading_season-{{season}}">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#season-{{season}}" aria-expanded="true" aria-controls="season-{{season}}">
-              {{../show.name}} - Season {{season}}
-            </a>
-          </h4>
-        </div>
-        <div id="season-{{season}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_season-{{season}}">
-          <div class="panel-body">
-            <table class="table">
-              {{#if ../user._id}}
-              <thead>
-                <tr>
-                  <td><button class="btn btn-default collection-season-watch" role="button" data-season="{{season}}">Watch</button></td>
-                  <td>Mark all <strong>{{total_episodes}}</strong> episodes in season {{season}} as watched</td>
-                </tr>
-              </thead>
-              {{/if}}
-              <tbody>
-                {{#each episodes}}
-                <tr id="episode-{{episode_number}}"
+<div class="container">
+  <div>
+    <h3>{{{headline}}}</h3>
+  </div>
+  <input type="hidden" id="show_id" value="{{show.global_id}}">
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>Seasons</td>
+        <td id="season_count">{{show.seasons}}</td>
+      </tr>
+      <tr>
+        <td>Last Episode</td>
+        <td>{{show.last_episode.title}} / {{show.last_episode.air_date}}</td>
+      </tr>
+      <tr>
+        <td>Genre</td>
+        <td>N/A</td>
+      </tr>
+      <tr>
+        <td>Network</td>
+        <td>N/A</td>
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>{{show.status}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <p><button class="btn btn-default collection-show-watch" role="button">Watch All</button>Mark all <strong>{{show.show_episodes}}</strong> episodes in all seasons as watched</p>
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    {{#each listing.seasons}}
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="heading_season-{{season}}">
+        <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#season-{{season}}" aria-expanded="true" aria-controls="season-{{season}}">
+          {{../show.name}} - Season {{season}}
+        </a>
+        </h4>
+      </div>
+      <div id="season-{{season}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_season-{{season}}">
+        <div class="panel-body">
+          <table class="table">
+            {{#if ../user._id}}
+            <thead>
+              <tr>
+                <td colspan="4"><button class="btn btn-default collection-season-watch" role="button" data-season="{{season}}">Watch</button>Mark all <strong>{{total_episodes}}</strong> episodes in season {{season}} as watched</td>
+              </tr>
+            </thead>
+            {{/if}}
+            <tbody>
+              {{#each episodes}}
+              <tr id="episode-{{episode_number}}"
+                {{#if aired}}
                 {{#if watched}}
-                  class="info"
+                class="info"
+                {{/if}}
+                {{else}}
+                class="active"
                 {{/if}}
                 >
-                  <td class="col-md-1">
+                <td class="col-md-1">
                   {{#if ../../user._id}}
                   <div class="checkbox watch-checkbox-div">
                     <label
-                    {{#unless aired}}
+                      {{#unless aired}}
                       class="disabled"
-                    {{/unless}}
-                    >
+                      {{/unless}}
+                      >
                       <input type="checkbox" class="season-{{../../season}} collection-watch" data-episode="{{episode_number}}"
                       {{#if aired}}
-                        {{#if watched}}
-                        checked
-                        {{/if}}
+                      {{#if watched}}
+                      checked
+                      {{/if}}
                       {{else}}
-                        disabled
+                      disabled
                       {{/if}}
                       > Watched
                     </label>
@@ -79,19 +82,17 @@
                   {{else}}
                   <a href="/auth/twitter">Track</a>
                   {{/if}}
-                  </td>
-                  <td class="col-md-2">S{{../season}}E{{season_number}}</td>
-                  <td class="col-md-7"><a href="{{link}}" target="_blank">{{title}}</a></td>
-                  <td class="col-md-2">{{air_date}}</td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
+                </td>
+                <td class="col-md-2">S{{../season}}E{{season_number}}</td>
+                <td class="col-md-7"><a href="/episode/{{../../show.global_id}}/S{{../season}}E{{season_number}}">{{title}}</a></td>
+                <td class="col-md-2">{{air_date}}</td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
         </div>
       </div>
-      {{/each}}
     </div>
-
-
-    <hr>
+    {{/each}}
+  </div>
+</div>

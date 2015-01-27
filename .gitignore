@@ -49,3 +49,9 @@ node_modules
 
 # Custom
 config.json
+
+# Redis dump file
+dump.rdb
+
+#SASS source
+*.sass-cache

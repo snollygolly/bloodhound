@@ -1,31 +1,72 @@
-var passport = require('koa-passport');
-var settings = require('./settings');
-var Promise = require('../plugins/base/common').Promise;
-var config = require('../config.json');
+var passport = require('koa-passport'),
+    settings = require('./settings'),
+    Promise  = require('../helpers/common').Promise,
+    config   = require('../config.json');
 
 passport.serializeUser(function(user, done) {
-  done(null, user)
-})
+  done(null, user);
+});
 
 passport.deserializeUser(function(user, done) {
-  done(null, user)
-})
+  done(null, user);
+});
 
-if (process.env.NODE_ENV == "production"){
-  var domainStr = "http://bloodhound.tv";
-}else{
-  var domainStr = "http://127.0.0.1:3000";
+var domainStr = "http://127.0.0.1:3000";
+if(process.env.NODE_ENV == "production") {
+  domainStr = "http://bloodhound.tv";
 }
 
-var TwitterStrategy = require('passport-twitter').Strategy
-passport.use(new TwitterStrategy({
-  consumerKey: config.app.data.passport_twitter.consumerKey,
-  consumerSecret: config.app.data.passport_twitter.consumerSecret,
-  callbackURL: domainStr + '/auth/twitter/callback'
-},
-Promise.coroutine(function * (token, tokenSecret, profile, done) {
-  user = yield settings.createUser(profile, "twitter");
-  done(null, user);
-})
+// -- Twitta
+if(typeof config.app.data.passport_twitter !== "undefined") {
+  var TwitterStrategy = require('passport-twitter').Strategy;
+  passport.use(
+    new TwitterStrategy(
+      {
+        consumerKey: config.app.data.passport_twitter.consumerKey,
+        consumerSecret: config.app.data.passport_twitter.consumerSecret,
+        callbackURL: domainStr + '/auth/twitter/callback'
+      },
+      Promise.coroutine(function * (token, tokenSecret, profile, done) {
+        user = yield settings.createUser(profile, "twitter");
+        done(null, user);
+      })
+    )
+  );
+}
 
-))
+// -- Facebook
+if(typeof config.app.data.passport_facebook !== "undefined") {
+  var FacebookStrategy = require('passport-facebook').Strategy;
+  passport.use(
+    new FacebookStrategy(
+      {
+        clientID: config.app.data.passport_facebook.appId,
+        clientSecret: config.app.data.passport_facebook.appSecret,
+        callbackURL: domainStr + '/auth/facebook/callback',
+        enableProof: false
+      },
+      Promise.coroutine(function * (accessToken, refreshToken, profile, done) {
+        user = yield settings.createUser(profile, "facebook");
+        done(null, user);
+      })
+    )
+  );
+}
+
+// -- Github
+if(typeof config.app.data.passport_github !== "undefined") {
+  var GitHubStrategy = require('passport-github').Strategy;
+  passport.use(
+    new GitHubStrategy(
+      {
+        clientID: config.app.data.passport_github.clientId,
+        clientSecret: config.app.data.passport_github.clientSecret,
+        callbackURL: domainStr + '/auth/github/callback'
+      },
+      Promise.coroutine(function * (accessToken, refreshToken, profile, done) {
+        user = yield settings.createUser(profile, "github");
+        done(null, user);
+      })
+    )
+  );
+}

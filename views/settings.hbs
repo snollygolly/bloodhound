@@ -1,65 +1,65 @@
-    <div>
-      <h3>{{{headline}}}</h3>
+<div class="container">
+  <div>
+    <h3>{{{headline}}}</h3>
+  </div>
+  <br>
+  <form>
+    <div class="form-group">
+      <label for="nickname">Nickname</label>
+      <input class="form-control" id="nickname" placeholder="Nickname" value="{{user.nickname}}">
     </div>
-    <br>
-    <form>
-      <div class="form-group">
-        <label for="nickname">Nickname</label>
-        <input class="form-control" id="nickname" placeholder="Nickname" value="{{user.nickname}}">
-      </div>
-      <div class="form-group">
-        {{#if config.search.plugins}}
-          <h3>Search Plugins</h3>
+    <div class="form-group">
+      {{#if config.search.plugins}}
+      <h3>Search Plugins</h3>
+      {{else}}
+      <h3>Search Plugins (none installed)</h3>
+      {{/if}}
+      {{#each config.search.plugins}}
+      <label class="radio-inline">
+        {{#if_eq ../user.plugins.search this}}
+        <input type="radio" name="{{this}}" id="search-{{this}}" value="{{this}}" checked="checked"> {{this}}
         {{else}}
-          <h3>Search Plugins (none installed)</h3>
-        {{/if}}
-        {{#each config.search.plugins}}
-        <label class="radio-inline">
-          {{#if_eq ../user.plugins.search this}}
-            <input type="radio" name="{{this}}" id="search-{{this}}" value="{{this}}" checked="checked"> {{this}}
-          {{else}}
-            <input type="radio" name="{{this}}" id="search-{{this}}" value="{{this}}"> {{this}}
-          {{/if_eq}}
-        </label>
-        {{/each}}
-      </div>
-      <div class="form-group">
-        {{#if config.acquire.plugins}}
-        <h3>Acquire Plugins</h3>
+        <input type="radio" name="{{this}}" id="search-{{this}}" value="{{this}}"> {{this}}
+        {{/if_eq}}
+      </label>
+      {{/each}}
+    </div>
+    <div class="form-group">
+      {{#if config.acquire.plugins}}
+      <h3>Acquire Plugins</h3>
+      {{else}}
+      <h3>Acquire Plugins (none installed)</h3>
+      {{/if}}
+      {{#each config.acquire.plugins}}
+      <label class="radio-inline">
+        {{#if_eq ../user.plugins.acquire this}}
+        <input type="radio" name="{{this}}" id="acquire-{{this}}" value="{{this}}" checked="checked"> {{this}} X
         {{else}}
-        <h3>Acquire Plugins (none installed)</h3>
-        {{/if}}
-        {{#each config.acquire.plugins}}
-        <label class="radio-inline">
-          {{#if_eq ../user.plugins.acquire this}}
-          <input type="radio" name="{{this}}" id="acquire-{{this}}" value="{{this}}" checked="checked"> {{this}} X
-          {{else}}
-          <input type="radio" name="{{this}}" id="acquire-{{this}}" value="{{this}}"> {{this}} - {{../user.plugins.acquire}}
-          {{/if_eq}}
-        </label>
-        {{/each}}
-      </div>
-      <div class="form-group">
-        {{#if config.display.plugins}}
-        <h3>Display Plugins</h3>
+        <input type="radio" name="{{this}}" id="acquire-{{this}}" value="{{this}}"> {{this}} - {{../user.plugins.acquire}}
+        {{/if_eq}}
+      </label>
+      {{/each}}
+    </div>
+    <div class="form-group">
+      {{#if config.display.plugins}}
+      <h3>Display Plugins</h3>
+      {{else}}
+      <h3>Display Plugins (none installed)</h3>
+      {{/if}}
+      {{#each config.display.plugins}}
+      <label class="radio-inline">
+        {{#if_eq ../user.plugins.display this}}
+        <input type="radio" name="{{this}}" id="display-{{this}}" value="{{this}}" checked="checked"> {{this}} X
         {{else}}
-        <h3>Display Plugins (none installed)</h3>
-        {{/if}}
-        {{#each config.display.plugins}}
-        <label class="radio-inline">
-          {{#if_eq ../user.plugins.display this}}
-          <input type="radio" name="{{this}}" id="display-{{this}}" value="{{this}}" checked="checked"> {{this}} X
-          {{else}}
-          <input type="radio" name="{{this}}" id="display-{{this}}" value="{{this}}"> {{this}} - {{../user.plugins.display}}
-          {{/if_eq}}
-        </label>
-        {{/each}}
-      </div>
-      <hr>
-      <p>You currently have <b>{{user.collection.length}}</b> shows in your collection
-      <a href="/collection/manage" class="btn btn-default" role="button">Manage Your Collection</a></p>
-      <br>
-      <button type="submit" class="btn btn-default">Save</button>
-    </form>
-
+        <input type="radio" name="{{this}}" id="display-{{this}}" value="{{this}}"> {{this}} - {{../user.plugins.display}}
+        {{/if_eq}}
+      </label>
+      {{/each}}
+    </div>
     <hr>
+    <p>You currently have <b>{{user.collection.length}}</b> shows in your collection
+    <a href="/collection/manage" class="btn btn-default" role="button">Manage Your Collection</a></p>
+    <br>
+    <button type="submit" class="btn btn-default">Save</button>
+  </form>
+</div>

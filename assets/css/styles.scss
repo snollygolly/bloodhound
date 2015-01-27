@@ -1,0 +1,18 @@
+/** MODULES **/
+/*@import 'modules/';*/
+
+/** PARTIALS **/
+@import 'partials/main';
+
+/** VENDORS **/
+/*@import 'vendors/';*/
+
+.footer-icon{
+	text-decoration:none;
+	margin-top:3px;
+	float:right;
+	&:hover{
+		color:red;
+	}
+}
+
