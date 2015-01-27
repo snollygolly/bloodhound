@@ -17,9 +17,9 @@
       {{#each config.search.plugins}}
       <label class="radio-inline">
         {{#if_eq ../user.plugins.search this}}
-        <input type="radio" name="{{this}}" id="search-{{this}}" value="{{this}}" checked="checked"> {{this}}
+        <input type="checkbox" name="{{this}}" id="search-{{this}}" value="{{this}}" checked="checked"> {{this}}
         {{else}}
-        <input type="radio" name="{{this}}" id="search-{{this}}" value="{{this}}"> {{this}}
+        <input type="checkbox" name="{{this}}" id="search-{{this}}" value="{{this}}"> {{this}}
         {{/if_eq}}
       </label>
       {{/each}}
