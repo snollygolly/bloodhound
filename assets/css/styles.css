@@ -43,12 +43,18 @@ footer p {
 /** VENDORS **/
 /*@import 'vendors/';*/
 .footer-icon {
+  color: #ccc;
   text-decoration: none;
   margin-top: 3px;
-  float: right;
+  margin-left: 193px;
+  float: left;
 }
 .footer-icon:hover {
-  color: red;
+  color: gray;
+}
+
+.copyright {
+  float: left;
 }
 
 /*# sourceMappingURL=styles.css.map */

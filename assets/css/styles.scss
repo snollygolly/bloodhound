@@ -8,11 +8,16 @@
 /*@import 'vendors/';*/
 
 .footer-icon{
+	color:#ccc;
 	text-decoration:none;
 	margin-top:3px;
-	float:right;
+	margin-left:193px;
+	float:left;
 	&:hover{
-		color:red;
+		color:gray;
 	}
 }
 
+.copyright {
+	float:left;
+}
