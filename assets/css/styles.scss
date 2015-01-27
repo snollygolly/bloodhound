@@ -6,3 +6,13 @@
 
 /** VENDORS **/
 /*@import 'vendors/';*/
+
+.footer-icon{
+	text-decoration:none;
+	margin-top:3px;
+	float:right;
+	&:hover{
+		color:red;
+	}
+}
+

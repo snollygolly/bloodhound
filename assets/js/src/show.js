@@ -29,7 +29,9 @@ $(document).ready(function() {
     var episodeArr = [];
     //get an arr of the episodes in this season
     $(".season-" + season_number).each(function(index) {
-      episodeArr.push($(this).attr('data-episode'));
+      if ($(this).prop("disabled") != true){
+        episodeArr.push($(this).attr('data-episode'));
+      }
     });
     $.post("/api/toggleWatch", {
       show_id: show_id,
@@ -42,7 +44,9 @@ $(document).ready(function() {
       }
       if (data.watched === 1) {
         $(".season-" + season_number).each(function(index) {
-          $(this).prop("checked", true);
+          if ($(this).prop("disabled") != true){
+            $(this).prop("checked", true);
+          }
         });
         while (episodeArr.length > 0) {
           $("#episode-" + episodeArr.pop()).addClass("info");
@@ -61,7 +65,10 @@ $(document).ready(function() {
     for (var i = 1; i <= season_count; i++) {
       i < 10 ? current_season = ".season-0" + i : current_season = ".season-" + i;
       $(current_season).each(function(index) {
-        episodeArr.push($(this).attr('data-episode'));
+        if ($(this).prop("disabled") != true){
+          //this episode is in the future and shouldn't be watched
+          episodeArr.push($(this).attr('data-episode'));
+        }
       });
     }
 
@@ -76,7 +83,9 @@ $(document).ready(function() {
       }
       if (data.watched === 1) {
         $(current_season).each(function(index) {
-          $(this).prop("checked", true);
+          if ($(this).prop("disabled") != true){
+            $(this).prop("checked", true);
+          }
         });
         while (episodeArr.length > 0) {
           $("#episode-" + episodeArr.pop()).addClass("info");
