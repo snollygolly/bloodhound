@@ -71,6 +71,9 @@ search.getListingByID = Promise.coroutine(function* (id) {
   //get the first 100 episodes from the API
   var currentResult = 0;
   var totalResults = 1;
+  //some episodes come through with a "bad" episode number (0's)
+  //we're going to prune these for now until we figure out what to do with them
+  var totalBadEps = 0;
   //set up the objects
   var listing = {};
   listing.show_id = id.toString();
@@ -100,35 +103,39 @@ search.getListingByID = Promise.coroutine(function* (id) {
     //increase the counters
     currentResult++;
     var result = results.shift();
-    //format it into an episode object
-    var episodeObj = {
-      episode_number : (totalResults - currentResult) + 1,
-      season_number : common.padNumber(parseInt(result.episode_number)),
-      air_date : result.first_aired,
-      link : "http://thetvdb.com/?tab=series&id=" + id + "&id=" + result.tvdb,
-      title : result.title,
-      description: result.overview
-    };
-    //start building the season
-    if (result.season_number != currentSeason){
-      //should we push the season object to the listing?
-      if (seasonObj.episodes.length != 0){
+    if (result.episode_number === 0 || result.season_number === 0){
+      //this is a "bad episode"
+      totalBadEps++;
+    }else{
+      //format it into an episode object
+      var episodeObj = {
+        episode_number : (totalResults - currentResult) + 1,
+        season_number : common.padNumber(parseInt(result.episode_number)),
+        air_date : result.first_aired,
+        link : "http://thetvdb.com/?tab=series&id=" + id + "&id=" + result.tvdb,
+        title : result.title,
+        description: result.overview
+      };
+      //start building the season
+      if (result.season_number != currentSeason){
+        //should we push the season object to the listing?
+        if (seasonObj.episodes.length != 0){
+          listing.seasons.unshift(seasonObj);
+        }
+        //this is the first episode of the season
+        currentSeason = result.season_number;
+        seasonObj = {};
+        seasonObj.season = common.padNumber(result.season_number);
+        seasonObj.episodes = [];
+      }
+      seasonObj.episodes.unshift(episodeObj);
+      if (currentResult == totalResults){
+        //this is the last iteration
         listing.seasons.unshift(seasonObj);
       }
-      //this is the first episode of the season
-      currentSeason = result.season_number;
-      seasonObj = {};
-      seasonObj.season = common.padNumber(result.season_number);
-      seasonObj.episodes = [];
     }
-    seasonObj.episodes.unshift(episodeObj);
-    if (currentResult == totalResults){
-      //this is the last iteration
-      listing.seasons.unshift(seasonObj);
-    }
-
   }
-  listing.total_episodes = totalResults;
+  listing.total_episodes = totalResults - totalBadEps;
   return listing;
 });
 
