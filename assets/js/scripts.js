@@ -29,7 +29,7 @@ $(document).ready(function() {
         $newRemoveCol.appendTo($newRow);
         $newRow.appendTo("#collection");
         //give the alert
-        displayAlert("success", "You've added '" + show.name + "' (" + show.show_id + ") to your collection");
+        displayAlert("success", "You've added '" + show.name + "' (" + show.show_id + ") to your <a href='/collection'>collection</a>");
 
       }
       clearInput();
@@ -59,7 +59,7 @@ $(document).ready(function() {
             $('<tr id="empty_collection"><td class="col-md-12" colspan="2"><i>You have no shows in your collection.</i></td></tr>').appendTo('#collection');
           }
           //give the alert
-          displayAlert("success", "You've removed '" + show_name + "' (" + show_id + ") from your collection");
+          displayAlert("success", "You've removed '" + show_name + "' (" + show_id + ") from your <a href='/collection'>collection</a>");
         }
       }
     });
