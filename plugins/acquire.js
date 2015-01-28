@@ -44,7 +44,7 @@ acquire.findShowURLs = Promise.coroutine(function* (name, episode, plugin) {
     throw new Error('No valued provided for plugin in acquire.findShowURLs');
   }
   var show_id = name;
-  name = name.split("_").splice(0, name.split("_").length - 1);
+  name = name.split("_").splice(0, name.split("_").length - 1).join(" ");
   log.debug("Acquire: Attempting to get show URLs: " + show_id);
   globalID = common.formatName(show_id + "_" + episode).toLowerCase();
   try {
