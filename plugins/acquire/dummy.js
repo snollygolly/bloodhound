@@ -15,3 +15,8 @@ function AcquirePlugin() {
 //Search prototype
 
 var acquire = AcquirePlugin.prototype;
+
+acquire.findShowURLs = Promise.coroutine(function* (name, episode) {
+  var urls = {};
+  return urls;
+});
