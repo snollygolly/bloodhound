@@ -153,11 +153,16 @@ exports.findShowURLs = function * findShowURLs() {
     if (!this.query.episode){
       throw new Error("No episode specified");
     }
+    if (!this.query.meta){
+      var meta = {};
+    }else{
+      var meta = this.query.meta;
+    }
     var show_id = this.query.episode.split("_");
     var episode_id = show_id.pop();
     show_id = show_id.join("_");
-    var urls = yield acquire.findShowURLs(show_id, episode_id, this.query.provider);
-    bodyObj.urls = urls;
+    var results = yield acquire.findShowURLs(show_id, episode_id, meta, this.query.provider);
+    bodyObj.results = results;
     bodyObj.status = "OK";
     this.body = JSON.stringify(bodyObj);
   //}catch (err){

@@ -17,6 +17,9 @@ function AcquirePlugin() {
 var acquire = AcquirePlugin.prototype;
 
 acquire.findShowURLs = Promise.coroutine(function* (name, episode) {
-  var urls = {};
-  return urls;
+  var results = {
+    name: "Dummy Show",
+    link: "http://this.is.a.dummy.show.com"
+  };
+  return results;
 });

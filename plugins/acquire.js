@@ -30,7 +30,7 @@ var request = common.request;
 var moment = common.moment;
 var settings = require("../models/settings");
 
-acquire.findShowURLs = Promise.coroutine(function* (name, episode, plugin) {
+acquire.findShowURLs = Promise.coroutine(function* (name, episode, meta, plugin) {
   if (name === undefined){
     //something went wrong
     throw new Error('No valued provided for name in acquire.findShowURLs');
@@ -61,7 +61,7 @@ acquire.findShowURLs = Promise.coroutine(function* (name, episode, plugin) {
   if (nowDate > futureDate){
     //the cache is expired
     try{
-      var urls = yield this.plugins[plugin].findShowURLs(name, episode);;
+      var urls = yield this.plugins[plugin].findShowURLs(name, episode, meta);;
     }
     catch (err){
       throw err;
