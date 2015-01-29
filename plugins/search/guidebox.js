@@ -69,7 +69,7 @@ search.getListingByID = Promise.coroutine(function* (id) {
   //this is the max supported by the API
   var episodesPerRequest = 100;
   //get the first 100 episodes from the API
-  var jsRes.results[i] = 0;
+  var currentEpisode = 0;
   var totalResults = 1;
   //some episodes come through with a "bad" episode number (0's)
   //we're going to prune these for now until we figure out what to do with them
@@ -82,12 +82,12 @@ search.getListingByID = Promise.coroutine(function* (id) {
   seasonObj.episodes = [];
   var currentSeason = 0;
   var results = [];
-  while (jsRes.results[i] < totalResults){
-  //while (jsRes.results[i] <= 1){
+  while (currentEpisode < totalResults){
+  //while (currentEpisode <= 1){
     //this should ensure that we get all the results for a show
     if (results.length == 0){
       //we are out of results, let's grab some more
-      var response = yield request.getAsync(this.info.path + "show/" + id + "/episodes/all/" + jsRes.results[i] + "/100/all/all").get(0);
+      var response = yield request.getAsync(this.info.path + "show/" + id + "/episodes/all/" + currentEpisode + "/100/all/all").get(0);
       var jsListing = JSON.parse(response.body);
       results = jsListing.results;
       totalResults = jsListing.total_results;
@@ -101,7 +101,7 @@ search.getListingByID = Promise.coroutine(function* (id) {
       batchCount = 0;
     }
     //increase the counters
-    jsRes.results[i]++;
+    currentEpisode++;
     var result = results.shift();
     if (result.episode_number === 0 || result.season_number === 0){
       //this is a "bad episode"
@@ -109,7 +109,7 @@ search.getListingByID = Promise.coroutine(function* (id) {
     }else{
       //format it into an episode object
       var episodeObj = {
-        episode_number : (totalResults - jsRes.results[i]) + 1,
+        episode_number : (totalResults - currentEpisode) + 1,
         season_number : common.padNumber(parseInt(result.episode_number)),
         air_date : result.first_aired,
         link : "http://thetvdb.com/?tab=series&id=" + id + "&id=" + result.tvdb,
@@ -129,7 +129,7 @@ search.getListingByID = Promise.coroutine(function* (id) {
         seasonObj.episodes = [];
       }
       seasonObj.episodes.unshift(episodeObj);
-      if (jsRes.results[i] == totalResults){
+      if (currentEpisode == totalResults){
         //this is the last iteration
         listing.seasons.unshift(seasonObj);
       }
