@@ -154,9 +154,9 @@ exports.findShowURLs = function * findShowURLs() {
       throw new Error("No episode specified");
     }
     if (!this.query.ep_name){
-      var meta = null;
+      var ep_name = null;
     }else{
-      var meta = this.query.ep_name;
+      var ep_name = this.query.ep_name;
     }
     var show_id = this.query.episode.split("_");
     var episode_id = show_id.pop();

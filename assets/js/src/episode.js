@@ -3,57 +3,33 @@ $(document).ready(function() {
   $(".acquire-episode").click(function() {
     var provider = $(this).attr('data-provider');
     var episode = $(this).attr('data-id');
+    var ep_name = $(this).attr('data-ep-name');
     var $button = $(this);
     $.get("/api/findShowURLs", {
       provider: provider,
-      episode: episode
+      episode: episode,
+      ep_name: ep_name
     })
     .done(function(data) {
       if (data.error) {
         //something went wrong
         console.log(data.error);
       }
-      console.log(data.urls.suggestions);
-      if (data.urls.suggestions){
+      console.log(data.results.suggestions);
+      if (data.results.suggestions.length != 0){
         //there's at least one show to download
         var suggestions = [];
-        if (data.urls.suggestions.smallest){
-          suggestions.push(formatURL(data, "smallest"));
-        }
-        if (data.urls.suggestions.four_eighty_p){
-          suggestions.push(formatURL(data, "four_eighty_p"));
-        }
-        if (data.urls.suggestions.seven_twenty_p){
-          suggestions.push(formatURL(data, "seven_twenty_p"));
-        }
-        if (data.urls.suggestions.ten_eighty_p){
-          suggestions.push(formatURL(data, "ten_eighty_p"));
-        }
-        if (data.urls.suggestions.twenty_one_sixty_p){
-          suggestions.push(formatURL(data, "twenty_one_sixty_p"));
-        }
+        suggestions.push(formatURL(data, 0));
+        $button.parent().html(suggestions.join("<br>"));
+      }else{
+        $button.parent().html("No results found");
       }
-      $button.parent().html(suggestions.join("<br>"));
     });
   });
 });
 
-function formatURL (data, quality){
-  if (data.urls.suggestions){
-    //there's at least one show to download
-    var qualityBadge = '<span class="badge">' + data.urls.suggestions[quality].quality + '</span>'
-    if (data.urls.suggestions[quality].languages.length != 0){
-      if (data.urls.suggestions[quality].languages.indexOf("English") != -1){
-        //english is a supported language
-        var languagesBadge = '<img src="/assets/img/blank.png" class="flag flag-us" alt="English" />';
-      }
-    }else{
-      var languagesBadge = '<img src="/assets/img/blank.png" class="flag" alt="Unknown" />';
-    }
+function formatURL (data, index){
+  var suggestion = "<a href=\"" + data.results.suggestions[index].link + "\" target='_blank'>" + decodeURI(data.results.suggestions[index].name) + "</a>";
 
-    var suggestion = qualityBadge + languagesBadge + " <a href=\"" + data.urls.suggestions[quality].link + "\">" + decodeURI(data.urls.suggestions[quality].name) + "</a> - [" + data.urls.suggestions[quality].size + "]<br>";
-  }else{
-    var suggestion = "No Results Found";
-  }
   return suggestion;
 }
