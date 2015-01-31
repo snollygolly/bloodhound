@@ -27,7 +27,7 @@ var Promise = common.Promise;
 var request = common.request;
 var cheerio = require('cheerio');
 
-acquire.findShowURLs = Promise.coroutine(function* (name, episode, meta) {
+acquire.findShowURLs = Promise.coroutine(function* (name, episode, ep_name) {
   //gps=the.vampire.diaries+s05e05+%21+sample
   //name and episode, excluding samples
   var searchStr = "gps=" + name + " " + episode + " ! sample ! .001";

@@ -30,7 +30,7 @@ var request = common.request;
 var moment = common.moment;
 var settings = require("../models/settings");
 
-acquire.findShowURLs = Promise.coroutine(function* (name, episode, meta, plugin) {
+acquire.findShowURLs = Promise.coroutine(function* (name, episode, ep_name, plugin) {
   if (name === undefined){
     //something went wrong
     throw new Error('No valued provided for name in acquire.findShowURLs');
@@ -42,6 +42,10 @@ acquire.findShowURLs = Promise.coroutine(function* (name, episode, meta, plugin)
   if (plugin === undefined){
     //something went wrong
     throw new Error('No valued provided for plugin in acquire.findShowURLs');
+  }
+  if (ep_name === undefined){
+    //something went wrong
+    throw new Error('No valued provided for ep_name in acquire.findShowURLs');
   }
   var show_id = name;
   name = name.split("_").splice(0, name.split("_").length - 1).join(" ");
@@ -61,7 +65,7 @@ acquire.findShowURLs = Promise.coroutine(function* (name, episode, meta, plugin)
   if (nowDate > futureDate){
     //the cache is expired
     try{
-      var urls = yield this.plugins[plugin].findShowURLs(name, episode, meta);;
+      var urls = yield this.plugins[plugin].findShowURLs(name, episode, ep_name);;
     }
     catch (err){
       throw err;

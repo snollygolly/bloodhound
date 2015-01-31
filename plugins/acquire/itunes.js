@@ -24,8 +24,8 @@ var log = common.log;
 var Promise = common.Promise;
 var request = common.request;
 
-acquire.findShowURLs = Promise.coroutine(function* (name, episode, meta) {
-  var searchStr = "term=" + meta + "&entity=tvEpisode";
+acquire.findShowURLs = Promise.coroutine(function* (name, episode, ep_name) {
+  var searchStr = "term=" + ep_name + "&entity=tvEpisode";
   var response = yield request.getAsync(this.info.path + "?" + searchStr).get(0);
   var jsRes = JSON.parse(response.body)
   if (response.statusCode != 200){
