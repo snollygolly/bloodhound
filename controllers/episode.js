@@ -29,6 +29,7 @@ exports.info = function * info() {
         episode.global_id = show.global_id + "_" + this.params.episode;
         episode.formatted_link_domain = episode.link.split("/")[2];
         episode.link_domain = episode.link.split("/").slice(0,3).join("/");
+        episode.mod_date = show.mod_date;
         break;
       }
     }

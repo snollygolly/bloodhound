@@ -49,6 +49,10 @@ footer p {
   padding-left: 0;
 }
 
+.show-mod-date {
+  visibility: hidden;
+}
+
 /** VENDORS **/
 /*@import 'vendors/';*/
 .footer-icon {
