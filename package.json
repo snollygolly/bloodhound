@@ -6,6 +6,7 @@
   "dependencies": {
     "bluebird": "^2.4.2",
     "bunyan": "^1.2.3",
+    "cheerio": "^0.18.0",
     "cradle": "^0.6.9",
     "grunt": "^0.4.5",
     "koa": "^0.13.0",

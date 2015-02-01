@@ -40,6 +40,15 @@ footer p {
   vertical-align: middle;
 }
 
+.result-div {
+  line-height: 12px;
+}
+
+.result-meta-prices {
+  list-style: none;
+  padding-left: 0;
+}
+
 /** VENDORS **/
 /*@import 'vendors/';*/
 .footer-icon {

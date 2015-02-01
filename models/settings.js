@@ -44,7 +44,8 @@ exports.createUser = Promise.coroutine(function * (profile, strategy) {
       nickname: profile.displayName,
       strategy: strategy,
       plugins: {
-        search: "guidebox"
+        search: "guidebox",
+        acquire: ["itunes"]
       },
       collection: [],
       viewing_history: {}
@@ -63,7 +64,8 @@ exports.createUser = Promise.coroutine(function * (profile, strategy) {
 exports.mockUser = {
   nickname: false,
   plugins: {
-    search: "guidebox"
+    search: "guidebox",
+    acquire: ["itunes"]
   },
   collection: ["613"],
   viewing_history: {

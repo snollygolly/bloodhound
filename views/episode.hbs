@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/assets/css/flag-sprites.css">
+
 <div class="container">
   <div>
     <h3>{{headline}}</h3>
@@ -31,6 +33,21 @@
         <td>Link</td>
         <td><a href="{{episode.link}}">{{episode.title}}</a> <i>via <a href="{{episode.link_domain}}">{{episode.formatted_link_domain}}</a></i></td>
       </tr>
+    </tbody>
+  </table>
+  <br>
+  <h3>Acquire Sources</h3>
+  <br>
+  <table class="table table-striped">
+    <tbody>
+      {{#each plugins}}
+      <tr>
+        <td>{{this}}</td>
+        <td class="acquire_results">
+          <button type="button" class="btn btn-primary acquire-episode" data-provider="{{this}}" data-id="{{../episode.global_id}}" data-ep-name="{{../episode.title}}">Find S{{../episode.season}}E{{../episode.season_number}} - {{../episode.title}}</button>
+        </td>
+      </tr>
+      {{/each}}
     </tbody>
   </table>
 </div>

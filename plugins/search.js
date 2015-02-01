@@ -35,18 +35,18 @@ var getID = Promise.coroutine(function* (id, plugin) {
   log.debug("Search: getID: Requested ID with: " + id + " (" + plugin + ")")
   if (id === undefined){
     //something went wrong
-    throw new Error('No valued provided for id in search.translateID');
+    throw new Error('No valued provided for id in search.getID');
   }
   if (plugin === undefined){
     //something went wrong
-    throw new Error('No valued provided for plugin in search.translateID');
+    throw new Error('No valued provided for plugin in search.getID');
   }
   try {
     var doc = yield db.getDoc(id, "index");
   }
   catch (err){
     //an index doesn't exist
-    throw new Error('No document found (' + id + ') in search.translateID');
+    throw new Error('No document found (' + id + ') in search.getID');
   }
 
   try {
