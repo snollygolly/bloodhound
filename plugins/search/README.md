@@ -68,7 +68,7 @@ You should be returning an object that has the following properties.
 
 ####Required Properties:
 - `show_id`
--  **Type:** `String`
+  - **Type:** `String`
 
 This is the localized ID that the search provider uses to identify this TV show.
 
