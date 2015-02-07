@@ -7,7 +7,7 @@ var isToday = require("../helpers/common.js").isToday;
 var isInFuture = require("../helpers/common.js").isInFuture;
 
 exports.index = function * index() {
-  //try{
+  try{
     var user = {};
     if (this.isAuthenticated()) {
       user = yield settings.getUser(this.session.passport.user._id);
@@ -57,10 +57,10 @@ exports.index = function * index() {
       shows.push(show);
     }
     yield this.render('collection', {user: user, headline: "My Collection", shows: shows});
-  //}catch (err){
-  //  log.warn("controllers/collection.index: " + err);
-  //  yield this.render('error', {user: user, error: err});
-  //}
+  }catch (err){
+    log.warn("controllers/collection.index: " + err);
+    yield this.render('error', {user: user, error: err});
+  }
 };
 
 exports.manage = function * manage() {

@@ -144,7 +144,7 @@ exports.findShowURLs = function * findShowURLs() {
   }else{
     throw new Error("No logged in user");
   }
-  //try{
+  try{
     this.type = "application/json";
     bodyObj = {};
     if (!this.query.provider){
@@ -165,10 +165,10 @@ exports.findShowURLs = function * findShowURLs() {
     bodyObj.results = results;
     bodyObj.status = "OK";
     this.body = JSON.stringify(bodyObj);
-  //}catch (err){
-  //  log.warn("controllers/api.findShowURLs: " + err);
-  //  bodyObj.error = err.toString();
-  //  this.body = JSON.stringify(bodyObj);
-  //  this.response.status = 500;
-  //}
+  }catch (err){
+    log.warn("controllers/api.findShowURLs: " + err);
+    bodyObj.error = err.toString();
+    this.body = JSON.stringify(bodyObj);
+    this.response.status = 500;
+  }
 }
