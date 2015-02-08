@@ -267,4 +267,26 @@ $(document).ready(function() {
       }
     });
   });
+
+  $(".flush-cache").click(function() {
+    var id = $(this).attr('data-id');
+    var db = $(this).attr('data-db');
+    var plugin = $(this).attr('data-plugin');
+    $.post("/api/flushCache", {
+      id: id,
+      db: db,
+      plugin: plugin
+    })
+    .done(function(data) {
+      console.log(data);
+      if (data.error) {
+        //something went wrong
+        console.log(data.error);
+      }
+      if (data.removed == true) {
+        console.log("removing");
+        $(".flush-cache").parent().find(".show-mod-date").html("just now!");
+      }
+    });
+  });
 });

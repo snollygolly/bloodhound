@@ -175,7 +175,7 @@ exports.findShowURLs = function * findShowURLs() {
 
 exports.flushCache = function * flushCache() {
   var db = require("../helpers/db.js");
-  var validDBs = ["downloads", "shows", "listings"];
+  var validDBs = ["downloads", "listings"];
   try{
     this.type = "application/json";
     var bodyObj = {};
@@ -195,13 +195,14 @@ exports.flushCache = function * flushCache() {
     if (this.isAuthenticated()) {
       //first, get the index for this show
       var doc = yield db.getDoc(this.request.body.id, "index");
-      log.warn("doc:", doc);
       if (!doc.plugin[this.request.body.plugin]){
         throw new Error("No index for this show");
       }
+      //TODO: there should b
       var id = this.request.body.plugin + "-" + doc.plugin[this.request.body.plugin];
       //now delete the plugin specific file for this
       bodyObj.id = yield db.removeDoc(id, this.request.body.db);
+      bodyObj.removed = true;
     }else{
       throw new Error("No logged in user");
     }

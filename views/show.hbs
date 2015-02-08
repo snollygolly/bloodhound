@@ -27,7 +27,11 @@
       </tr>
       <tr>
         <td>Last Updated</td>
-        <td class="show-mod-date">{{show.mod_date}}</td>
+        <td><span class="show-mod-date">{{listing.mod_date}}</span>
+          {{#if_eq user.power true}}
+          [<a href="#" class="flush-cache" role="button" data-id="{{show.global_id}}" data-db="listings" data-plugin="{{user.plugins.search}}">Flush Cache</a>]
+          {{/if_eq}}
+        </td>
       </tr>
     </tbody>
   </table>
