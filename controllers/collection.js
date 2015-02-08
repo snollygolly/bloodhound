@@ -92,13 +92,14 @@ function getColor (show, listing, user){
     grey: "default"
   };
   var color;
+  log.warn ("show", show);
   //get rid of any future shows from the listing for comparisons
   //pass it the show, listing, and user, and it decides what the color code is depending on logic here
   if (!user.viewing_history[show.global_id]){
     //they don't have a viewing history for this show, let's mock one up
     user.viewing_history[show.global_id] = [];
   }
-  if (user.viewing_history[show.global_id].length >= listing.watchable_episodes){
+  if (!show.last_episode || user.viewing_history[show.global_id].length >= listing.watchable_episodes){
     //they've seen them all
     if (show.status == "DEAD"){
       return colors.red;
