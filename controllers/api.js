@@ -6,7 +6,7 @@ var log = require("../helpers/common.js").log;
 exports.toggleWatch = function * toggleWatch() {
   try{
     this.type = "application/json";
-    bodyObj = {};
+    var bodyObj = {};
     if (!this.request.body.show_id){
       throw new Error("No show_id specified");
     }
@@ -21,7 +21,7 @@ exports.toggleWatch = function * toggleWatch() {
           user.viewing_history[this.request.body.show_id] = [];
         }
         //check to see if they're sending an array
-        epArr = this.request.body.episode_number;
+        var epArr = this.request.body.episode_number;
         if (Array.isArray(epArr) === true){
           //they've passed in an array of episode numbers, so check them all
           for (var i=0; i<epArr.length; i++) {
@@ -34,7 +34,7 @@ exports.toggleWatch = function * toggleWatch() {
           bodyObj.method = "BATCH";
         }else{
           //if they aren't sending an array, they are sending a single episode
-          index = user.viewing_history[this.request.body.show_id].indexOf(parseInt(this.request.body.episode_number));
+          var index = user.viewing_history[this.request.body.show_id].indexOf(parseInt(this.request.body.episode_number));
           if (index > -1){
             //they have already seen this show, remove it
             user.viewing_history[this.request.body.show_id].splice(index, 1);
@@ -66,7 +66,7 @@ exports.addShowByName = function * addShowByName() {
   var search = new Search();
   try{
     this.type = "application/json";
-    bodyObj = {};
+    var bodyObj = {};
     if (!this.request.body.show){
       throw new Error("No show specified");
     }
@@ -105,14 +105,14 @@ exports.addShowByName = function * addShowByName() {
 exports.removeShow = function * removeShow() {
   try{
     this.type = "application/json";
-    bodyObj = {};
+    var bodyObj = {};
     if (!this.request.body.show_id){
       throw new Error("No show specified");
     }
     else{
       if (this.isAuthenticated()) {
         var user = yield settings.getUser(this.session.passport.user._id);
-        index = user.collection.indexOf(this.request.body.show_id);
+        var index = user.collection.indexOf(this.request.body.show_id);
         if (index === -1){
           //they already have the show in their colleciton, let's not add it again
           throw new Error("This show isnt in your collection");
@@ -139,7 +139,7 @@ exports.findShowURLs = function * findShowURLs() {
   if (this.isAuthenticated()) {
     // However, if a user is authenticated, we grab that user's information
     // using their passport session information.
-    user = yield settings.getUser(this.session.passport.user._id);
+    var user = yield settings.getUser(this.session.passport.user._id);
     var acquire = new Acquire(user);
   }else{
     throw new Error("No logged in user");
@@ -167,6 +167,47 @@ exports.findShowURLs = function * findShowURLs() {
     this.body = JSON.stringify(bodyObj);
   }catch (err){
     log.warn("controllers/api.findShowURLs: " + err);
+    bodyObj.error = err.toString();
+    this.body = JSON.stringify(bodyObj);
+    this.response.status = 500;
+  }
+}
+
+exports.flushCache = function * flushCache() {
+  var db = require("../helpers/db.js");
+  var validDBs = ["downloads", "shows", "listings"];
+  try{
+    this.type = "application/json";
+    var bodyObj = {};
+    if (!this.request.body.id){
+      throw new Error("No ID specified");
+    }
+    if (!this.request.body.db){
+      throw new Error("No DB specified");
+    }
+    if (!this.request.body.plugin){
+      throw new Error("No Plugin specified");
+    }
+    //no one should be flushing caches outside of validDBs, this is suspect
+    if (validDBs.indexOf(this.request.body.db) === -1){
+      throw new Error("Invalid DB specified");
+    }
+    if (this.isAuthenticated()) {
+      //first, get the index for this show
+      var doc = yield db.getDoc(this.request.body.id, "index");
+      log.warn("doc:", doc);
+      if (!doc.plugin[this.request.body.plugin]){
+        throw new Error("No index for this show");
+      }
+      var id = this.request.body.plugin + "-" + doc.plugin[this.request.body.plugin];
+      //now delete the plugin specific file for this
+      bodyObj.id = yield db.removeDoc(id, this.request.body.db);
+    }else{
+      throw new Error("No logged in user");
+    }
+    this.body = JSON.stringify(bodyObj);
+  }catch (err){
+    log.warn("controllers/api.addShowByName: " + err);
     bodyObj.error = err.toString();
     this.body = JSON.stringify(bodyObj);
     this.response.status = 500;

@@ -47,3 +47,15 @@ exports.saveDoc = Promise.coroutine(function * (doc, dbName) {
     throw new CouchDBError('DB: Save: Save of "' + doc._id + '" failed');
   }
 });
+
+// Removes a document in a database in CouchDB.
+exports.removeDoc = Promise.coroutine(function * (id, dbName) {
+  try {
+    var db = connectToDatabase(dbName);
+    var returnVal = yield db.removeAsync(id);
+    return id;
+  } catch (err) {
+    if(err.name === "CouchDBError") throw err;
+    throw new CouchDBError('DB: Remove: Removal of "' + id + '" failed');
+  }
+});
