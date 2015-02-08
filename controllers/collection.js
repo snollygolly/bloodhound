@@ -8,13 +8,11 @@ var isInFuture = require("../helpers/common.js").isInFuture;
 
 exports.index = function * index() {
   try{
-    var user = {};
     if (this.isAuthenticated()) {
-      user = yield settings.getUser(this.session.passport.user._id);
+      var user = yield settings.getUser(this.session.passport.user._id);
     }else{
-      user = settings.mockUser;
+      throw new Error('You must be logged in to view your collection');
     }
-
     var shows = [];
     var search = new Search();
     for (var i=0; i<user.collection.length; i++) {

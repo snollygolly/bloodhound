@@ -67,8 +67,8 @@ exports.mockUser = {
     search: "guidebox",
     acquire: ["itunes"]
   },
-  collection: ["613"],
+  collection: ["archer_2009"],
   viewing_history: {
-    "613": []
+    "archer_2009": []
   }
 };

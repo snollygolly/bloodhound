@@ -15,9 +15,11 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-left">
+        {{#if user._id}}
         <li><a href="/collection">Collection</a></li>
+        {{/if}}
       </ul>
-
+      
       <ul class="nav navbar-nav navbar-right">
         {{#if user._id}}
         <li><a href="/settings" class="settings-button" role="button">Settings</a></li>
