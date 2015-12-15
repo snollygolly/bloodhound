@@ -2,8 +2,9 @@
 
 <div class="container">
   <div>
-    <h3>{{headline}}</h3>
+    <h3>{{show.name}}</h3>
   </div>
+  <input type="hidden" id="show_id" value="{{show.global_id}}">
   <br>
   <table class="table table-striped">
     <tbody>
@@ -37,6 +38,19 @@
         <td>Last Updated</td>
         <td class="show-mod-date">{{episode.mod_date}}</td>
       </tr>
+      <tr>
+        <td>Watched</td>
+        <td><div class="checkbox watch-checkbox-div">
+          <label>
+            <input type="checkbox" class="collection-watch" data-episode="{{episode.episode_number}}"
+            {{#if watched}}
+            checked
+            {{/if}}
+            >Finished?
+          </label>
+        </div></td>
+      </tr>
+
     </tbody>
   </table>
   <br>

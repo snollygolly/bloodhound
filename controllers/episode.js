@@ -33,7 +33,7 @@ exports.info = function * info() {
         break;
       }
     }
-    yield this.render('episode', {user: user, headline: show.name, episode: episode, plugins: user.plugins.acquire});
+    yield this.render('episode', {user: user, show: show, episode: episode, plugins: user.plugins.acquire});
   }catch (err){
     log.warn("controllers/show.info: " + err);
     this.response.status = 500;
