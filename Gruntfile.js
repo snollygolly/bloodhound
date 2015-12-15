@@ -42,7 +42,6 @@ module.exports = function(grunt) {
             dev: {
                 script: 'app.js',
                 options: {
-                    nodeArgs: ['--harmony-generators'],
                     ext: 'js,hbs'
                 }
             }
