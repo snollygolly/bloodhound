@@ -4,13 +4,9 @@
          "session_keys":[
             "XXX"
          ],
-         "passport_twitter":{
-            "consumerKey":"XXX",
-            "consumerSecret":"XXX"
-         },
-         "passport_facebook":{
-            "appId":"XXX",
-            "appSecret":"XXX"
+         "passport_reddit":{
+            "clientId":"XXX",
+            "clientSecret":"XXX"
          },
          "passport_github":{
             "clientId":"XXX",

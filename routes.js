@@ -34,25 +34,13 @@ app.get('/', function *() {
 });
 
 // Authentication/Passport bindings.
-//-- Twitter
-app.get("/auth/twitter",
-  passport.authenticate("twitter")
+//-- Reddit
+app.get("/auth/reddit",
+  passport.authenticate("reddit")
 );
 
-app.get("/auth/twitter/callback",
-  passport.authenticate("twitter", {
-    successRedirect: "/collection",
-    failureRedirect: "/"
-  })
-);
-
-//-- Facebook
-app.get("/auth/facebook",
-  passport.authenticate("facebook")
-);
-
-app.get("/auth/facebook/callback",
-  passport.authenticate("facebook", {
+app.get("/auth/reddit/callback",
+  passport.authenticate("reddit", {
     successRedirect: "/collection",
     failureRedirect: "/"
   })

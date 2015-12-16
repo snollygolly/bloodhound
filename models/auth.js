@@ -16,37 +16,20 @@ if(process.env.NODE_ENV == "production") {
   domainStr = "http://bloodhound.tv";
 }
 
-// -- Twitta
-if(typeof config.app.data.passport_twitter !== "undefined") {
-  var TwitterStrategy = require('passport-twitter').Strategy;
+// -- Reddit
+if(typeof config.app.data.passport_reddit !== "undefined") {
+  var RedditStrategy = require('passport-reddit').Strategy;
   passport.use(
-    new TwitterStrategy(
+    new RedditStrategy(
       {
-        consumerKey: config.app.data.passport_twitter.consumerKey,
-        consumerSecret: config.app.data.passport_twitter.consumerSecret,
-        callbackURL: domainStr + '/auth/twitter/callback'
+        clientID: config.app.data.passport_reddit.clientId,
+        clientSecret: config.app.data.passport_reddit.clientSecret,
+        callbackURL: domainStr + '/auth/reddit/callback',
+        state: true
       },
       Promise.coroutine(function * (token, tokenSecret, profile, done) {
-        user = yield settings.createUser(profile, "twitter");
-        done(null, user);
-      })
-    )
-  );
-}
-
-// -- Facebook
-if(typeof config.app.data.passport_facebook !== "undefined") {
-  var FacebookStrategy = require('passport-facebook').Strategy;
-  passport.use(
-    new FacebookStrategy(
-      {
-        clientID: config.app.data.passport_facebook.appId,
-        clientSecret: config.app.data.passport_facebook.appSecret,
-        callbackURL: domainStr + '/auth/facebook/callback',
-        enableProof: false
-      },
-      Promise.coroutine(function * (accessToken, refreshToken, profile, done) {
-        user = yield settings.createUser(profile, "facebook");
+        profile.displayName = profile.name;
+        user = yield settings.createUser(profile, "reddit");
         done(null, user);
       })
     )
@@ -64,6 +47,7 @@ if(typeof config.app.data.passport_github !== "undefined") {
         callbackURL: domainStr + '/auth/github/callback'
       },
       Promise.coroutine(function * (accessToken, refreshToken, profile, done) {
+        console.log(profile);
         user = yield settings.createUser(profile, "github");
         done(null, user);
       })
