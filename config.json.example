@@ -29,10 +29,13 @@
    "display":{
 
    },
-   "deploy":{
+  "deploy":{
       "username": "YOUR USERNAME",
       "hostname": "YOUR HOSTNAME",
       "path": "~/borrowbot",
       "screen": "borrowbot"
+  },
+  "site":{
+    "port": 3000
   }
 }

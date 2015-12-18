@@ -60,11 +60,8 @@ require('./helpers/handlebars');
 // Now we bind routes.
 require('./routes');
 
-if (process.env.NODE_ENV == "production"){
-  port = 80;
-} else {
-  port = 3000;
-}
+var port = config.site.port;
+
 log.info("Bloodhound is now running on port " + port);
 app.listen(port);
 
