@@ -55,3 +55,6 @@ dump.rdb
 
 #SASS source
 *.sass-cache
+
+# for caching
+tmp

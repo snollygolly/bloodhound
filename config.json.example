@@ -28,5 +28,11 @@
    },
    "display":{
 
-   }
+   },
+   "deploy":{
+      "username": "YOUR USERNAME",
+      "hostname": "YOUR HOSTNAME",
+      "path": "~/borrowbot",
+      "screen": "borrowbot"
+  }
 }

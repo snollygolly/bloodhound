@@ -74,14 +74,14 @@ module.exports = function(grunt) {
                 files: 'assets/js/src/*.js',
                 tasks: ['dist-scripts'],
                 options: {
-                    livereload: true
+                    livereload: false
                 }
             },
             styles: {
                 files: ['assets/css/**/*.scss'],
                 tasks: ['dist-styles'],
                 options: {
-                    livereload: true
+                    livereload: false
                 }
             }
         },

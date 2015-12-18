@@ -43,6 +43,8 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-nodemon": "*",
     "mocha": "^2.1.0",
+    "shipit-cli": "^1.4.1",
+    "shipit-deploy": "^2.1.2",
     "supertest": "^0.15.0"
   },
   "scripts": {
