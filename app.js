@@ -67,3 +67,7 @@ if (process.env.NODE_ENV == "production"){
 }
 log.info("Bloodhound is now running on port " + port);
 app.listen(port);
+
+process.on('SIGINT', function() {
+  process.exit();
+});
