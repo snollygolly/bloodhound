@@ -12,7 +12,7 @@ passport.deserializeUser(function(user, done) {
 });
 
 var domainStr = "http://127.0.0.1:3000";
-if(process.env.NODE_ENV == "production") {
+if(config.site.port == 80) {
   domainStr = "http://bloodhound.tv";
 }
 

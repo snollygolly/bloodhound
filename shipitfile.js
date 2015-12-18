@@ -3,7 +3,6 @@ module.exports = function (shipit) {
 
   var config = require('./config.json');
   var pathStr = "PATH='$PATH:/usr/local/bin'";
-  var envStr = "NODE_ENV=production";
   var currentPath = config.deploy.path + "/current";
 
   shipit.initConfig({
@@ -29,12 +28,12 @@ module.exports = function (shipit) {
 
   // this task starts the server in a screen with a name set in the config
   shipit.blTask('start_screen', function () {
-    return shipit.remote(pathStr + " && cd " + currentPath + " && screen -S " + config.deploy.screen + " -d -m " + envStr + " npm run production");
+    return shipit.remote(pathStr + " && cd " + currentPath + " && screen -S " + config.deploy.screen + " -d -m npm run production");
   });
 
   // this task starts the server directly in the shipit output.  use this instead of start_screen if you're having problems
   shipit.blTask('start_session', function () {
-    return shipit.remote(pathStr + " && cd " + currentPath + " && " + envStr + " npm run production");
+    return shipit.remote(pathStr + " && cd " + currentPath + " && npm run production");
   });
 
   // this task copies the config.json from your local folder to the current folder
