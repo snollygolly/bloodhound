@@ -1,4 +1,5 @@
 var hbs = require('../app').hbs;
+var config = require('../config.json');
 
 hbs.registerHelper('if_eq', function(a, b, opts) {
   if(a == b) // Or === depending on your needs
