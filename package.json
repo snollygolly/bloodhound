@@ -53,7 +53,6 @@
     "clear-db": "make clear-db",
     "production": "node app.js | ./node_modules/.bin/bunyan"
   },
-  "pre-push": [],
   "repository": {
     "type": "git",
     "url": "https://github.com/snollygolly/bloodhound.git"
