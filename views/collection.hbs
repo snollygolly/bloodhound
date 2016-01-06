@@ -14,6 +14,7 @@
           <th>Show</th>
           <th>Last Episode</th>
           <th>Show Page</th>
+          <th>Show JSON</th>
         </tr>
       </thead>
       <tbody>
@@ -27,6 +28,9 @@
           {{/if}}
           <td>
             <a class="btn btn-default" href="/show/{{global_id}}" role="button">Go</a>
+          </td>
+          <td>
+            {{stringify this}}
           </td>
         </tr>
         {{/each}}

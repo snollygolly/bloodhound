@@ -10,3 +10,7 @@ hbs.registerHelper('if_eq', function(a, b, opts) {
 hbs.registerHelper('copyright_year', function(opts) {
   return new Date().getFullYear();
 });
+
+hbs.registerHelper('stringify', function(opts) {
+	return JSON.stringify(opts);
+});
