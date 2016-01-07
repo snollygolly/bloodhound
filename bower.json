@@ -1,0 +1,32 @@
+{
+  "name": "bloodhound",
+  "description": "It finds TV. It's good.",
+  "main": "app.js",
+  "authors": [
+    "Matt Horning"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "bloodhound",
+    "tv"
+  ],
+  "homepage": "https://github.com/snollygolly/bloodhound",
+  "moduleType": [
+    "es6",
+    "node"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.2",
+    "font-awesome": "~4.5.0",
+    "moment": "~2.11.0",
+    "tether": "~1.1.1"
+  }
+}

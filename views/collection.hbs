@@ -1,4 +1,4 @@
-  <div class="container">
+  <div class="collection-container">
     <div>
       <h3>{{{headline}}}
         {{#if user._id}}
@@ -8,32 +8,25 @@
         {{/if}}
       </h3>
     </div>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Show</th>
-          <th>Last Episode</th>
-          <th>Show Page</th>
-          <th>Show JSON</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each shows}}
-        <tr class="{{color}}">
-          <td>{{name}}</td>
-          {{#if last_episode}}
-            <td>{{last_episode.title}} / {{last_episode.air_date}}</td>
-          {{else}}
-            <td>No Episodes To Watch</td>
-          {{/if}}
-          <td>
-            <a class="btn btn-default" href="/show/{{global_id}}" role="button">Go</a>
-          </td>
-          <td>
-            {{stringify this}}
-          </td>
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>
+    <div class="row">
+      {{#each shows}}
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card card-inverse">
+          {{#if posterUrl}}<img class="card-img" src="{{posterUrl}}" alt="{{name}} Poster" width="100%">{{/if}}
+          <div class="card-img-overlay">
+            <h3 class="card-title">{{name}}</h3>
+            <p class="card-text collection-description"><small>{{description}}</small></p>
+            <p class="card-text">
+              {{#if last_episode}}
+                {{last_episode.title}} / {{last_episode.air_date}}
+              {{else}}
+                No Episodes To Watch
+              {{/if}}
+            </p>
+            <a class="btn btn-primary" href="/show/{{global_id}}" role="button">Go</a>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
   </div>

@@ -3,6 +3,7 @@ exports.Promise = require('bluebird');
 exports.request = exports.Promise.promisifyAll(require('request'));
 exports.xml2js  = exports.Promise.promisifyAll(require('xml2js'));
 exports.moment  = require('moment');
+exports._       = require('lodash');
 
 // If we're in a test NODE_ENV, we do not need to see any bunyan logs.
 // Also using the stream approach to help with future production logging.

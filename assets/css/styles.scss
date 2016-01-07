@@ -2,22 +2,9 @@
 /*@import 'modules/';*/
 
 /** PARTIALS **/
+@import 'partials/collection';
+@import 'partials/footer';
 @import 'partials/main';
 
 /** VENDORS **/
 /*@import 'vendors/';*/
-
-.footer-icon{
-	color:#ccc;
-	text-decoration:none;
-	margin-top:3px;
-	margin-left:193px;
-	float:left;
-	&:hover{
-		color:gray;
-	}
-}
-
-.copyright {
-	float:left;
-}

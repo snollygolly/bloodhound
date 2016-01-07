@@ -37,13 +37,13 @@ if(typeof config.app.data.passport_reddit !== "undefined") {
 }
 
 // -- Github
-if(typeof config.app.data.passport_github !== "undefined") {
+if(typeof config.app.data.passport_github_dev !== "undefined") {
   var GitHubStrategy = require('passport-github').Strategy;
   passport.use(
     new GitHubStrategy(
       {
-        clientID: config.app.data.passport_github.clientId,
-        clientSecret: config.app.data.passport_github.clientSecret,
+        clientID: config.app.data.passport_github_dev.clientId,
+        clientSecret: config.app.data.passport_github_dev.clientSecret,
         callbackURL: domainStr + '/auth/github/callback'
       },
       Promise.coroutine(function * (accessToken, refreshToken, profile, done) {

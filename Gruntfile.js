@@ -83,6 +83,12 @@ module.exports = function(grunt) {
                 options: {
                     livereload: false
                 }
+            },
+            livereload: {
+                files: ['assets/css/styles.min.css'],
+                options: {
+                    livereload: true
+                }
             }
         },
 

@@ -1,6 +1,7 @@
 var Search = require('../plugins/search.js');
 var settings = require('../models/settings');
 var moment = require("../helpers/common.js").moment;
+var _ = require("../helpers/common.js")._;
 //logging
 var log = require("../helpers/common.js").log;
 var isToday = require("../helpers/common.js").isToday;
@@ -54,6 +55,7 @@ exports.index = function * index() {
       //add show to the collection
       shows.push(show);
     }
+    shows = _.sortByOrder(shows, ['status', 'name'], ['desc', 'asc']);
     yield this.render('collection', {user: user, headline: "My Collection", shows: shows});
   }catch (err){
     log.warn("controllers/collection.index: " + err);

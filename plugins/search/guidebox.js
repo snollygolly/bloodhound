@@ -41,10 +41,15 @@ search.searchForShow = Promise.coroutine(function* (name) {
 });
 
 search.getShowByID = Promise.coroutine(function* (id) {
+  // Get the show info
   var response = yield request.getAsync(this.info.path + "show/" + id).get(0);
   var jsShow = JSON.parse(response.body);
+  // Get the seasons info
   response = yield request.getAsync(this.info.path + "show/" + id + "/seasons").get(0);
   var jsSeasons = JSON.parse(response.body);
+  // Get the posters
+  response = yield request.getAsync(this.info.path + "show/" + id + "/images/posters").get(0);
+  var jsPosters = JSON.parse(response.body).results.posters;
   //TODO: process the date
   //TODO: get genre and network
   if (jsSeasons.total_results == 0){
@@ -53,14 +58,21 @@ search.getShowByID = Promise.coroutine(function* (id) {
     jsShow.seasons = jsSeasons.results.length;
   }
   status = convertStatus(jsShow.status);
+  // Get the URL of the first poster, if it exists
+  var posterUrl = null;
+  if (jsPosters.length > 0) {
+    posterUrl = jsPosters[0].xlarge.url;
+  }
   var show = {
     show_id: jsShow.id.toString(),
     name: jsShow.title,
     showlink: "http://thetvdb.com/?tab=series&id=" + jsShow.tvdb,
+    description: jsShow.overview,
     started: jsShow.first_aired.split("-").shift(),
     status: status,
     seasons: jsShow.seasons,
-    runtime: jsShow.runtime
+    runtime: jsShow.runtime,
+    posterUrl: posterUrl
   };
   return show;
 });

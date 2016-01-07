@@ -17,6 +17,7 @@
     "koa-redis": "^1.0.0",
     "koa-router": "^3.7.0",
     "koa-static-folder": "^0.1.3",
+    "lodash": "^3.10.1",
     "moment": "^2.8.4",
     "nodemon": "^1.3.1",
     "passport": "^0.2.1",

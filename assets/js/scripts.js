@@ -2,6 +2,13 @@ $(document).ready(function() {
   $(document).ajaxError(function(event, jqxhr, settings, thrownError) {
     displayAlert("danger", "Oh no! '" + jqxhr.responseJSON.error);
   });
+
+  $('.collection-container .card').hover(function(overEvent) {
+    $(this).find('.card-img-overlay').fadeIn(200);
+  }, function(outEvent) {
+    $(this).find('.card-img-overlay').fadeOut(200);
+  });
+
   //use document on to affect elemented added after the DOM loads
   $(document).on("click", "#add_show", function() {
     $("#add_show").prop("disabled", true);
