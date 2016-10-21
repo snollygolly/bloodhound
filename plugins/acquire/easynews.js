@@ -35,6 +35,8 @@ acquire.findShowURLs = Promise.coroutine(function* (name, episode, ep_name) {
   searchStr += "&fty%5B%5D=VIDEO&s1=dsize&s1d=%2B&s2=nrfile&s2d=%2B&s3=dsize&s3d=%2B";
   //fly. something to do with air travel? best to leave it in i think
   searchStr += "&fly=2";
+  //to only show results larger than 50mb
+  searchStr += "&b1t=14";
   var response = yield request.getAsync(this.info.path + "?" + searchStr).get(0);
   log.warn(this.info.path + "?" + searchStr);
   if (response.statusCode != 200){
