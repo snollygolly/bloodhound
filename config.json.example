@@ -32,8 +32,8 @@
   "deploy":{
       "username": "YOUR USERNAME",
       "hostname": "YOUR HOSTNAME",
-      "path": "~/borrowbot",
-      "screen": "borrowbot"
+      "path": "~/bloodhound",
+      "screen": "bloodhound"
   },
   "site":{
     "port": 3000,
