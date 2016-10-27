@@ -116,6 +116,11 @@ search.getListingByID = Promise.coroutine(function* (id) {
         title : result.title,
         description: result.overview
       };
+      if (episodeObj.season_number.length >= 3){
+        // remove the first character if there's 3.  #83
+        // might cause problems for daily shows
+        episodeObj.season_number = episodeObj.season_number.slice(1);
+      }
       //start building the season
       if (result.season_number != currentSeason){
         //should we push the season object to the listing?
