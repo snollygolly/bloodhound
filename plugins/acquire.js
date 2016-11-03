@@ -65,7 +65,7 @@ acquire.findShowURLs = Promise.coroutine(function* (name, episode, ep_name, plug
   if (nowDate > futureDate){
     //the cache is expired
     try{
-      var urls = yield this.plugins[plugin].findShowURLs(name, episode, ep_name);;
+      var urls = yield this.plugins[plugin].findShowURLs(show_id, name, episode, ep_name);;
     }
     catch (err){
       throw err;
