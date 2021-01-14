@@ -1,5 +1,5 @@
 # Bloodhound
-###Makes TV more awesome.
+### Makes TV more awesome.
 
 ## Installation
 - Make sure the latest version of [node](http://nodejs.org/) is installed
